@@ -1,0 +1,365 @@
+<?php 
+include './inc/inc.koneksi.php';
+
+if (isset($_GET['lokasi']) && isset($_GET['where'])) {
+    $lokasi = $_GET['lokasi'];
+    $kd_kab = $_GET['kd_kab'];
+    $limit = $_GET['where'];
+    $datetime = date('Y-m-d H:i:s');
+    
+     mysql_query( "CREATE TABLE IF NOT EXISTS rencana_anggota_$lokasi LIKE rencana_angsuran_master");
+     mysql_query( "CREATE TABLE IF NOT EXISTS real_anggota_$lokasi LIKE real_angsuran_master");
+    
+    $total = mysql_num_rows(mysql_query("SELECT pk.id FROM anggota_$kd_kab k, pinjaman_anggota_$kd_kab pk WHERE pk.jenis_pinjaman='I' and k.id=pk.nia and k.lokasi=$lokasi and (pk.status='A' OR pk.status='W' OR pk.status='L' OR pk.status='H' OR pk.status='R') 
+                        AND ($limit) ORDER BY id ASC"));
+    echo "Total Pinjaman Kelompok $kd_kab = " . $total . "<br><br>";
+    
+    if (isset($_GET['limit']) && isset($_GET['start'])) {
+        $start = $_GET['start']+$_GET['limit'];
+        $per_page = 25;
+    } else {
+        $start = 0;
+        $per_page = 25;
+    }
+?>
+    <form action="" method="get">
+        <input type="hidden" name="lokasi" id="lokasi" value="<?php echo $lokasi; ?>">
+        <input type="hidden" name="kd_kab" id="kd_kab" value="<?php echo $kd_kab; ?>">
+        <input type="hidden" name="where" id="where" value="<?php echo $limit; ?>">
+        <input type="text" name="start" id="start" value="<?php echo $start; ?>" autofocus>
+        <input type="text" name="limit" id="limit" value="<?php echo $per_page; ?>" readonly>
+        <button type="submit" name="migrate" id="migrate">Run</button>
+    </form>
+    
+    <?php 
+    function bulatkan($angka) {
+        
+        include './inc/inc.koneksi.php';
+        $lokasi = $_GET['lokasi'];
+        $kd_kab = $_GET['kd_kab'];
+        $kec=mysql_fetch_array(mysql_query("select * from kecamatan WHERE id='$lokasi'"));
+        $pembulatan	= number_format($kec['pembulatan'],0,'',''); //Pembulatannya ex: -500
+        $length		= strlen($pembulatan); //Jumlah karakter pada kolom pembulatan
+        $uang		= floor($angka);
+        $bulat 		= substr($pembulatan, 1); //Angka pembulatnya : 50
+        if($length<=3) {
+            $pecahan 		= substr($uang, -2); //Pecahan yang akan dibulatkan ex: 33
+            $pengali		= $bulat*2;
+        } else {
+            $pecahan 		= substr($uang, -3);
+            $pengali		= 1000;
+        }
+    if ($pembulatan>0) { //Pembulatan Keatas
+        if($pecahan<$bulat and $pecahan>0) { //.333
+                $pembulatan = $uang + ($bulat-$pecahan); 
+            }else if($pecahan>$bulat ) { 
+                $pembulatan = $uang + $pengali-$pecahan; //.666
+            }else if($pecahan==0 or $pecahan==$bulat){
+                $pembulatan = $uang;
+            }
+        } else  if ($pembulatan<0) { //Pembulatan Kebawah
+            if($pecahan<$bulat and $pecahan>0) { //.333
+                $pembulatan = $uang - $pecahan;
+            }else if($pecahan>$bulat ) {		//.666
+                $pembulatan = $uang + (($bulat*2)-$pecahan);
+            }else if($pecahan==0 or $pecahan==$bulat){
+                $pembulatan = $uang;
+            }
+        } else { 
+            $pembulatan = $uang;
+        }
+        return $pembulatan;
+    }
+    // Ambil Data Pinjaman Kelompok
+    $pinjaman_kelompok = mysql_query("SELECT pk.id,
+    pk.tgl_cair,
+    pk.tgl_tunggu,
+    pk.sistem_angsuran,
+    pk.sa_jasa,
+    pk.alokasi,
+    pk.jangka,
+    pk.pros_jasa,
+    pk.jenis_pp
+    FROM anggota_$kd_kab k, pinjaman_anggota_$kd_kab pk WHERE pk.jenis_pinjaman='I' AND k.id=pk.nia and k.lokasi=$lokasi and (pk.status='A' OR pk.status='W' OR pk.status='L' OR pk.status='H' OR pk.status='R') 
+                        AND ($limit) ORDER BY id ASC LIMIT $start, $per_page");
+                        
+    while ($pk = mysql_fetch_array($pinjaman_kelompok)) {
+        $del_re = mysql_query("DELETE FROM real_anggota_$lokasi WHERE loan_id=$pk[id]");
+        $del_ra = mysql_query("DELETE FROM rencana_anggota_$lokasi WHERE loan_id=$pk[id]");
+        
+        if($pk['tgl_cair']=="0000-00-00"){
+            $tgl_cair = $pk['tgl_tunggu'];
+        }else{
+            $tgl_cair = $pk['tgl_cair'];
+        }
+        $tgllalu = $tgl_cair;
+        
+        $jenis_pp = $pk['jenis_pp'];
+				
+			if($jenis_pp==1) { //SPP
+				$nama_jp		="SPP";
+				$rek_pokok_d	="112.01";
+				$rek_jasa_d		="112.02";
+				$rek_denda_d	="112.03";
+				$poko_kredit	="131.02";
+				$jasa_kredit		="411.01";
+				$dend_kredit	="411.03";
+				}
+				elseif($jenis_pp==2) { //UEP
+				$nama_jp		="UEP";
+				$rek_pokok_d	="113.01";
+				$rek_jasa_d		="113.02";
+				$rek_denda_d	="113.03";
+				$poko_kredit	="132.02";
+				$jasa_kredit		="411.02";
+				$dend_kredit	="411.04";
+				}
+				elseif($jenis_pp==3) { //PL
+				$nama_jp		="PL";
+				$rek_pokok_d	="115.01";
+				$rek_jasa_d		="115.02";
+				$rek_denda_d	="115.03";
+				$poko_kredit	="133.02";
+				$jasa_kredit		="411.06";
+				$dend_kredit	="411.07";
+				}
+				elseif($jenis_pp==4) { //DKU
+				$nama_jp		="DKU";
+				$rek_pokok_d	="116.01";
+				$rek_jasa_d		="116.02";
+				$rek_denda_d	="116.03";
+				$poko_kredit	="134.02";
+				$jasa_kredit		="411.08";
+				$dend_kredit	="411.09";
+				}
+				elseif($jenis_pp==5) { //DSPP
+				$nama_jp		="DSPP";
+				$rek_pokok_d	="117.01";
+				$rek_jasa_d		="117.02";
+				$rek_denda_d	="117.03";
+				$poko_kredit	="135.02";
+				$jasa_kredit		="411.10";
+				$dend_kredit	="411.11";
+				}elseif($jenis_pp==6) { //P2B
+				$nama_jp		="P2B";
+				$rek_pokok_d	="115.01";
+				$rek_jasa_d		="115.02";
+				$rek_denda_d	="115.03";
+				$poko_kredit	="133.02";
+				$jasa_kredit		="411.06";
+				$dend_kredit	="411.07";
+				}elseif($jenis_pp==7) { //PKKPM
+				$nama_jp		="PKKPM";
+				$rek_pokok_d	="116.01";
+				$rek_jasa_d		="116.02";
+				$rek_denda_d	="116.03";
+				$poko_kredit	="134.02";
+				$jasa_kredit		="411.08";
+				$dend_kredit	="411.09";
+				}elseif($jenis_pp==8) { //SPPro
+				$nama_jp		="SPPro";
+				$rek_pokok_d	="115.01";
+				$rek_jasa_d		="115.02";
+				$rek_denda_d	="115.03";
+				$poko_kredit	="133.02";
+				$jasa_kredit		="411.06";
+				$dend_kredit	="411.07";
+				}elseif($jenis_pp==14) { //SPP Mikro Klirong
+				$nama_jp		="SPP Mikro";
+				$rek_pokok_d	="116.01";
+				$rek_jasa_d		="116.02";
+				$rek_denda_d	="116.03";
+				$poko_kredit	="134.02";
+				$jasa_kredit		="411.08";
+				$dend_kredit	="411.09";
+				
+				}elseif($jenis_pp==13) { //Kredit Barang
+				$nama_jp		="KB";
+				$rek_pokok_d	="114.01";
+				$rek_jasa_d		="114.02";
+				$rek_denda_d	="114.03";
+				$poko_kredit	="137.02";
+				$jasa_kredit		="411.13";
+				$dend_kredit	="411.14";
+				}
+        // Ambil Sistem Angsuran Pinjaman (Pokok dan Jasa)
+        $sipokok = mysql_fetch_array(mysql_query( "select * from sistem_angsuran WHERE id='$pk[sistem_angsuran]'"));
+        $sijasa = mysql_fetch_array(mysql_query( "select * from sistem_angsuran WHERE id='$pk[sa_jasa]'"));
+    
+        $alokasi = $pk['alokasi'];
+        $jangka = $pk['jangka'];
+        $pros_jasa = $pk['pros_jasa'];
+    
+        $tarp=0;
+        $tarj=0;
+        
+        // Cek Rencana Angsuran Ke-0
+        if (mysql_num_rows(mysql_query( "SELECT * FROM rencana_anggota_$lokasi WHERE loan_id='$pk[id]' AND angsuran_ke='0'")) <= 0) {
+            
+            // Insert Rencana Angsuran Ke-0
+            $input_ra = mysql_query( "INSERT INTO `rencana_anggota_$lokasi`
+            (`id`, `loan_id`, `angsuran_ke`, `jatuh_tempo`, `wajib_pokok`, `wajib_jasa`, `target_pokok`, `target_jasa`, `lu`,
+            `id_user`) VALUES (null,'$pk[id]','0','$tgl_cair','0','0','0','0','$datetime','1')");
+        }
+        
+        // Loop Jangka Untuk Membuat Rencana Angsuran
+        for($ke=1;$ke<=$pk['jangka'];$ke++) {
+            $tgl = explode('-', $tgl_cair);
+            $tanggal = $tgl[2];
+            $bulan = $tgl[1];
+            $tahun = $tgl[0];
+    
+            $b = $bulan+$ke;
+            $bagi_b = floor($b/12);
+            if ($b>12){
+                if($b%12 == 0){
+                    $bl = $b-(12*$bagi_b)+12;
+                }
+                else{
+                    $bl = $b-(12*$bagi_b);
+                    $th = $tahun+$bagi_b;
+                }
+            } else{
+                $bl = $b;
+                $th = $tahun;
+            }
+    
+            if ($bl<10){
+    			$bln = "0$bl";
+    		} else {
+    			$bln = $bl;
+    		}
+    
+    		$tglang = "$th-$bln-$tanggal";
+            $sapokok = intval($sipokok['sistem']);
+            $tempokok = @($jangka/$sapokok);
+            $satuanwapok = bulatkan(@($alokasi/$tempokok));
+            if($ke%$sapokok == 0){
+                $wapok = $satuanwapok;
+            }else{
+                $wapok = 0;
+            }
+    
+            if($ke == $jangka){
+                $sump = $wapok*($ke/$sapokok-1);
+                $wapok = $alokasi-$sump;
+            }
+    
+            $sajasa = $sijasa['sistem'];
+            $temjasa = @($jangka/$sajasa);
+            $satuanwajas = bulatkan($alokasi*($pros_jasa/100)*$sajasa);
+            if($ke%$sajasa == 0){
+                $wajas = $satuanwajas;
+            }else{
+                $wajas = 0;
+            }
+    
+            if($ke == $jangka){
+                $sumj = $wajas*($ke/$sajasa-1);
+                $wajas = bulatkan($alokasi*($pk['pros_jasa']/100)*$jangka)-$sumj;
+            }
+    
+            $tarp = $tarp+$wapok;
+            if($ke == $jangka){
+                $tarp = $alokasi;
+            }
+    
+            $tarj = $tarj+$wajas;
+            $ra = mysql_query( "SELECT * FROM rencana_anggota_$lokasi WHERE loan_id='$pk[id]' AND jatuh_tempo='$tglang'");
+            
+            // Cek apakah data yang akan di input sudah ada didalam tabel rencana_anggota_$lokasi
+            if (mysql_num_rows($ra) <= 0) {
+                
+                // Insert data kedalam tebel rencana_angsuran dengan angsuran_ke>0
+                $sqlinput = mysql_query( "INSERT INTO `rencana_anggota_$lokasi`(`id`, `loan_id`, `angsuran_ke`,
+                `jatuh_tempo`, `wajib_pokok`, `wajib_jasa`, `target_pokok`, `target_jasa`, `lu`, `id_user`) VALUES
+                (null,'$pk[id]','$ke','$tglang','$wapok','$wajas','$tarp','$tarj','$datetime','1')");
+            }
+        }
+    
+        // Ambil Data Transaksi
+        $tansaksi_loan = mysql_query( "SELECT * FROM transaksi_$lokasi WHERE id_pinj_i='$pk[id]' AND idtp!='0' ORDER BY tgl_transaksi ASC, idtp ASC ");
+        $sum_pokok=0;
+        $sum_jasa=0;
+        echo $pk['id'];
+        echo " = ";
+        $id_pinj = $pk['id'];
+        $data_idtp = [];
+        $nooo = 1;
+        
+        // Loop Data Transaksi
+        while($tr = mysql_fetch_array($tansaksi_loan)) {
+            
+            // Cek apakah idtp sudah ada didalam array $data_idtp
+            if (in_array($tr['idtp'], $data_idtp)) continue;
+            echo $nooo++;
+            echo " | ";
+            
+            $tgl_transaksi = $tr['tgl_transaksi'];
+            
+            $transpokok = mysql_fetch_array(mysql_query( "select * from transaksi_$lokasi WHERE idtp='$tr[idtp]' AND `rekening_kredit`='$poko_kredit'"));
+            $realisasi_pokok = $transpokok['jumlah'] ?: 0;
+            $sum_pokok = $sum_pokok+$transpokok['jumlah'];
+            $saldo_pokok = $alokasi-$sum_pokok;
+    
+            // $transjasa = mysqli_fetch_array(mysqli_query($koneksi, "select * from transaksi_$lokasi WHERE idtp='$tr[idtp]' AND (`rekening_kredit`='$jasa_kredit' OR `rekening_kredit`='1.1.05.%')" ));
+            $transjasa = mysql_fetch_array(mysql_query( "select * from transaksi_$lokasi WHERE idtp='$tr[idtp]' AND (`rekening_kredit`='$jasa_kredit')" ));
+            $realisasi_jasa = $transjasa['jumlah'] ?: 0;
+            $sum_jasa = $sum_jasa+$transjasa['jumlah'];
+            $saldo_jasa = $tarj-$sum_jasa;
+    
+            $real = mysql_query( "SELECT * FROM real_anggota_$lokasi WHERE loan_id='$id_pinj' ORDER BY tgl_transaksi DESC, id DESC");
+            if (mysql_num_rows($real) > 0) {
+                $real_a = mysql_fetch_array($real);
+                $saldo_pokok = $real_a['saldo_pokok'] - $transpokok['jumlah'];
+                $saldo_jasa = $real_a['saldo_jasa'] - $transjasa['jumlah'];
+                $sum_pokok = $real_a['sum_pokok'] + $transpokok['jumlah'];
+                $sum_jasa = $real_a['sum_jasa'] + $transjasa['jumlah'];
+            }
+    
+            $ra = mysql_fetch_array(mysql_query( "select * from rencana_anggota_$lokasi WHERE loan_id='$id_pinj' AND jatuh_tempo<='$tgl_transaksi' 
+                                    ORDER BY jatuh_tempo DESC, id DESC LIMIT 1")); 
+            $targetp = $ra['target_pokok'];
+            $targetj = $ra['target_jasa']; 
+            $tunggakan_pokok=$targetp-$sum_pokok;
+            $tunggakan_jasa=$targetj-$sum_jasa;
+    
+            $realisasi = mysql_query( "SELECT * FROM real_anggota_$lokasi WHERE loan_id='$pk[id]' AND id='$tr[idtp]'");
+            
+            // Cek apakah data yang akan di input kedalam tabel real_anggota_$lokasi sudah ada
+            if (mysql_num_rows($realisasi) <= 0) {
+                
+                // Cek rekening_kredit apakah termasuk kedalam angsuran
+                if ($tr['rekening_kredit'] == $poko_kredit || $tr['rekening_kredit'] == $jasa_kredit) {
+    
+                    // Input data kedalam tabel real_angsurann_$lokasi
+                    $sqlinput2 = mysql_query( "INSERT INTO `real_anggota_$lokasi` (`id`, `loan_id`, `tgl_transaksi`, `realisasi_pokok`, `realisasi_jasa`, 
+                    `sum_pokok`, `sum_jasa`, `saldo_pokok`, `saldo_jasa`, `tunggakan_pokok`, `tunggakan_jasa`, `lu`, `id_user`) VALUES ('$tr[idtp]','$pk[id]',
+                    '$tgl_transaksi','$realisasi_pokok','$realisasi_jasa','$sum_pokok','$sum_jasa','$saldo_pokok','$saldo_jasa','$tunggakan_pokok','$tunggakan_jasa',
+                    '$datetime','1')");
+                    
+                    var_dump($sqlinput2);
+                }
+            }
+            
+            // Masukkan idtp kedalam array untuk pengecekan
+            $data_idtp[] = $tr['idtp'];
+        }
+    echo "<br>";
+    }
+    
+    echo "====================================================================================";
+} else {
+?>
+
+<form action="" method="get">
+    <input type="text" name="lokasi" id="lokasi" placeholder="Lokasi" autofocus>
+    <input type="text" name="kd_kab" id="kd_kab" placeholder="kd_kab" >
+    <input type="text" name="where" id="where" placeholder="WHERE field='key'" value="1">
+    <button type="submit" name="migrate" id="migrate">Run</button>
+</form>
+
+<?php
+}
+?>
+<a href='?'>back</a> &nbsp; &nbsp; <b>*</b>

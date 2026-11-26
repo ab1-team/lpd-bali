@@ -1,0 +1,104 @@
+
+
+networks:
+  lpd-internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.55.0.0/24
+
+volumes:
+  db-demo-data:
+  db-siupk-data:
+  db-payment-data:
+
+# ---------------------------------------------------------------------------
+# LPD Bali legacy apps (extracted from LPD.zip)
+#
+#   appsbc1   -> "lpdbalii_demo"         PHP 5.6 + native ext/mysql
+#   upkv2new  -> "lpdbalii_siupkonline"  PHP 7.4 + mysql_shim (mysqli)
+#   payment   -> upkv2new payment module expects DBs:
+#                "siupkonl_payment" and "siupkonl_new"
+#
+# Ports on the VPS (sim-sppg):
+#   8017  appsbc1     (PHP 5.6)
+#   8018  upkv2new    (PHP 7.4)
+#   3307  mysql 5.7   (host-localhost only, for admin access)
+# ---------------------------------------------------------------------------
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: lpd-db
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --max_allowed_packet=256M
+      - --sql_mode=
+    environment:
+      MYSQL_ROOT_PASSWORD: lpdroot2026
+      MYSQL_DATABASE: lpdbalii_demo
+      MYSQL_USER: lpdapp
+      MYSQL_PASSWORD: lpdapp2026
+    volumes:
+      - db-demo-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+    ports:
+      - "127.0.0.1:3307:3306"
+    networks:
+      - lpd-internal
+
+  appsbc1:
+    build:
+      context: ./docker/appsbc1-php56
+    image: lpd/appsbc1-php56
+    container_name: lpd-appsbc1
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./apps/appsbc1:/var/www/html
+    networks:
+      - lpd-internal
+
+  nginx-appsbc1:
+    image: nginx:alpine
+    container_name: lpd-nginx-appsbc1
+    restart: unless-stopped
+    depends_on:
+      - appsbc1
+    ports:
+      - "8017:80"
+    volumes:
+      - ./apps/appsbc1:/var/www/html:ro
+      - ./docker/nginx/appsbc1.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - lpd-internal
+
+  upkv2new:
+    build:
+      context: ./docker/upkv2new-php74
+    image: lpd/upkv2new-php74
+    container_name: lpd-upkv2new
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./apps/upkv2new:/var/www/html
+    networks:
+      - lpd-internal
+
+  nginx-upkv2new:
+    image: nginx:alpine
+    container_name: lpd-nginx-upkv2new
+    restart: unless-stopped
+    depends_on:
+      - upkv2new
+    ports:
+      - "8018:80"
+    volumes:
+      - ./apps/upkv2new:/var/www/html:ro
+      - ./docker/nginx/upkv2new.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - lpd-internal

@@ -1,0 +1,204 @@
+<?php
+include "../../../inc/inc.koneksi.php";
+include "../../../inc/terbilang.php";
+include "../../../inc/fungsi_indotgl.php";
+include "../../../inc/fungsi_simpanan_individu.php";
+
+$lokasi				=$_SESSION['lokasi'];
+
+$report				=$_POST['report'];
+if (empty($report)) {
+	$idf				=$_GET['idf'];
+	$d					=$_GET['d'];
+	$m					=$_GET['m'];
+	$y					=$_GET['y'];
+}else{
+	$idf				=2;
+	$d					=$_POST['d'];
+	$m					=$_POST['m'];
+	$y					=$_POST['y'];
+}
+
+$tgl				="$y-$m-$d";
+$yll				=$y-1;
+$mll				=$m-1; if($mll<10) {$ml="0$mll"; }else{ $ml=$mll; }
+$dll				=$d-1; if($dll<10) {$dl="0$dll"; }else{ $dl=$dll; }
+$thn_kondisi		="$y-01-01";
+$thn_kondisi_lalu	="$yll-12-31";
+
+	 if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $tgl_kondisi="$y-$m-$d"; $kc="D"; $tgl_kondisilalu="$y-$m-$dl"; $judulL="Kemaren"; $judulC="Hari Ini"; }
+else if($m=$m){$laporan="Bulanan"; $jenis="Bulan"; $tgl_kondisi=date("Y-m-t", strtotime("$y-$m")); $kc="M"; $tgl_kondisilalu=date("Y-m-t", strtotime("$y-$ml-01")); $judulL="Bulan Lalu"; $judulC="Bulan Ini"; }
+else if($y=$y){$laporan="Tahunan"; $jenis="Tahun"; $tgl_kondisi="$y-12-31"; $kc="Y"; $tgl_kondisilalu="$y-12-31"; $judulL="Tahun Lalu"; $judulC="Tahun Ini"; }
+else{$laporan="Global";}
+
+$tgl_kon="$y-$m-15";
+$tgl_last=date('Y-m-t', strtotime("$tgl_kon"));
+
+$row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten k, kecamatan c, lkm l where k.id=c.kd_kab AND c.id=l.lokasi AND l.lokasi='$lokasi' "));
+$u=mysql_fetch_array(mysql_query("SELECT * FROM users where id='$_SESSION[id]' "));
+
+$jp=mysql_fetch_array(mysql_query("SELECT * FROM jenis_produk_pinjaman where id='$idf' "));
+$jpp=$jp['nama_jpp'];
+
+$kd_kec=$row['kd_kec'];
+
+?>
+
+
+<style type="text/css">
+<!--
+.style6 {font-family: Arial, Helvetica, sans-serif; font-size: 16px;font-weight: bold;  -webkit-print-color-adjust: exact;}
+.style9 {font-family: Arial, Helvetica, sans-serif; font-size: 11px; -webkit-print-color-adjust: exact;}
+.style10 {font-family: Arial, Helvetica, sans-serif; font-size: 10px; -webkit-print-color-adjust: exact;}
+.top	{border-top: 1px solid #000000; }
+.bottom	{border-bottom: 1px solid #000000; }
+.left	{border-left: 1px solid #000000; }
+.right	{border-right: 1px solid #000000; }
+.all	{border: 1px solid #000000; }
+.style26 {font-family: Arial, Helvetica, sans-serif}
+.style27 {font-family: Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; }
+.align-justify {text-align:justify; }
+.align-center {text-align:center; }
+.align-right {text-align:right; }
+-->
+</style>
+<body onLoad="window.print()">
+
+<table width="96%" border="0" align="center" cellpadding="3" cellspacing="0">
+	<tr>
+		<td height="20" colspan="4" class="bottom">
+			<?php
+			    $row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten k, kecamatan c, lkm l where k.id=c.kd_kab  AND c.id=l.lokasi AND l.lokasi='$lokasi'")); 
+											$alamat_lkm =$row ['alamat'];
+											$exp	    = explode("#", $alamat_lkm);    
+	                                        $alamat1    = $exp[0];
+			                                $desa1      = $exp[1];
+			                                $kodepos1   = $exp[2];
+				$logo=$row['logo'];
+					if (empty($logo)) {
+						echo "<img class='' alt='...' src='../../../images/upk.png' style='float:left; width:50; margin-right:5px;'>";
+						}else{
+						echo "<img class='' alt='...' src='../../../images/logo/$logo' style='float:left; width:50; margin-right:5px;'>";
+						}
+											
+			$ijin_usaha	=$row ['ijin_usaha'];
+			if (empty($ijin_usaha)) {$ijin="";}else{$ijin="Badan Hukum No.$ijin_usaha<br>";}
+		
+			echo "<div class='style9'>".strtoupper("<b>$row[jenis_lkm] LKM $row[nama_lkm_long]<br>KECAMATAN $row[nama_kec] KABUPATEN $row[nama_kab]</b>")."<br>$ijin $alamat1 $desa1 $kodepos1 Telp. $row[telpon_kec] </div>"; 
+			?>
+		</td>
+		<td height="20" colspan="5" class="bottom">
+			<div align="right" class="style9">Dokumen Laporan <?php echo $laporan;?><br>
+			Kd.Doc. 2T Tab Lembar-1 </div>
+		</td>
+	</tr> 
+    <tr>
+        <td height="20" colspan="6" class="style6 bottom align-center"><br>DAFTAR RINCIAN TABUNGAN <br><br></td>
+    </tr>
+    <tr>
+            <td colspan="2" width="30%" class="style9">NAMA LKM</td>
+            <td colspan="4"  width="60%" class="style9">: <?php echo "$row[nama_lkm_long]" ;?></td>
+	    </tr>
+	     <tr>
+            <td colspan="2" width="30%" class="style9">SANDI LKM</td>
+            <td colspan="4"  width="60%" class="style9">: <?php echo "$row[sandi_lkm]" ;?></td>
+	     </tr>
+	     <tr>
+            <td colspan="2" width="30%" class="style9 bottom">PERIODE LAPORAN</td>
+            <td colspan="4" width="60%" class="style9 bottom">: <?php echo tgl_indo($tgl_kondisi) ;?></td>
+	        </tr>
+			<tr align="center" height="30px" class="style9 ">
+              <th width="2%" rowspan="2" class="left bottom">No</th>
+              <th width="15%" rowspan="2" colspan="2" class="left bottom">Nama Penyimpan - CIF</a></th>
+			  <th colspan="2" class="left bottom">Suku Bunga</a></th>
+			  <th width="8%" rowspan="2" class="left bottom right">Jumlah </a></th>
+			  
+            </tr>
+            
+            <tr align="center"  height="30px" class="style9">
+			  <th width="5%" class="left bottom">%</th>
+              <th width="10%" class="left bottom">Keterangan</th>
+			  
+            </tr>
+	  	  <?php
+		$data=mysql_query("SELECT d.id, d.nama_desa FROM kecamatan c, desa d WHERE c.kd_kec=d.kd_kec AND c.id='$lokasi' ORDER BY d.id ASC");
+		$no=0;
+		while($r=mysql_fetch_array($data)){
+		$idd=$r['id'];
+		$no=$no+1;
+$view=mysql_query("SELECT *	  
+		FROM 
+			anggota_$_SESSION[kd_kab] a,
+			jenis_simpanan js,
+			simpanan_anggota_$_SESSION[kd_kab] sa 
+		WHERE 
+			a.id=sa.nia AND a.desa='$r[id]' AND sa.tgl_buka <= '$tgl_kondisi' AND  sa.`status`='A' AND sa.jenis_simpanan=js.id
+			ORDER BY a.nik ASC"); 
+			
+		$noo=0;
+		$jind=mysql_num_rows($view);
+			$ssaldo       =0;
+        	
+        	if($jind>0){
+		?>
+		<tr>
+			<td class="style27 left top right" colspan="14"><?php echo "$no. ".strtoupper($r['nama_desa']);?></td>
+		</tr>
+		<?php
+        	}
+		while($row=mysql_fetch_array($view)){
+		$noo=$noo+1;
+		$ids=$row['id'];
+		$saldo		=saldosimpanan("$tgl_kondisi-$ids");
+		$ssaldo     = $ssaldo+$saldo;
+		$jsaldo     = $jsaldo+$saldo;
+		?>
+			
+			<tr align="right" height="15px" class="style9">
+              <td class="left top" align="center">	            <?php echo $noo;?></td>
+			  <td colspan="2" class="left top" align="left">	<?php echo "$row[nik] $row[namadepan] - $ids"; ?></td>
+              <td class="left top" align="center">	            <?php echo "$row[bunga]"; ?></td>
+              <td class="left top" align="left">	<?php echo "$row[nama_js]"; ?>	          - Per Bulan</td>
+			  <td class="left top  right">					    <?php echo number_format("$saldo"); ?></td>
+			  </tr>
+
+	<?php $sumalokasi			=$sumalokasi+$alokasi;
+	       $sumsaldopinjaman   =$sumsaldopinjaman+$saldopinjaman;
+	       $jumlah              =1;
+	       $jumlahanggota       =$jumlahanggota+$jumlah;
+		}
+		/*
+lancar = <?php echo "$lancar"; ?> <br>
+Diragukan = <?php echo "$diragukan"; ?> <br>
+Macet = <?php echo "$macet"; ?> <br>
+*/
+        	if($jind>0){
+		?>
+		<tr class="style9">
+		    <th colspan="5" class="left bottom top" align="center">JUMLAH SALDO</th>
+		    <th class="left right bottom top" align="right"><?php echo number_format($ssaldo) ;?></th>
+		</tr>
+		<?php
+        	}
+		}
+		?>
+		<tr class="style9">
+		    <th colspan="5" class="bottom" align="center">&nbsp;</th>
+		    <th class="bottom" align="right">&nbsp;</th>
+		</tr>
+		<tr class="style9">
+		    <th colspan="5" class="left bottom top" align="center" style="background:rgba(0,0,0, 0.3);">JUMLAH SALDO KESELURUHAN (<?php echo $jumlahanggota ;?> Nasabah)</th>
+		    <th class="left right bottom top" align="right" style="background:rgba(192,192,192,0.3);" ><?php echo number_format($jsaldo) ;?></th>
+		</tr>
+
+
+
+
+		
+		<tr>
+		<td class="style10 top" colspan="6"><b>Keterangan</b> : Data yang ditampilkan diatas merupakan Tabungan pada tahun berjalan (<?php echo $y;?>), untuk menampilkan data Individu aktif tahun lalu dapat memilih mode tahun lalu (<?php echo $yll;?>).</td>
+		</tr>
+</table>
+
+<?php include "tanda_tangan.php"; ?> 
+<title>Tab<?php echo tgl_indo($tgl);?></title> 

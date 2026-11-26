@@ -1,0 +1,1 @@
+<strong><i class="fa fa-check-circle text-success"></i></strong><span class="text-success"></span>

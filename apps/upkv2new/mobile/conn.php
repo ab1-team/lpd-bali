@@ -1,0 +1,1 @@
+<?php $con = mysqli_connect(getenv('LPD_DB_HOST') ?: 'db', getenv('LPD_DB_USER') ?: 'lpdapp', getenv('LPD_DB_PASS') ?: 'lpdapp2026', 'android') or die('Unable to Connect'); ?>

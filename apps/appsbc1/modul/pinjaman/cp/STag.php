@@ -1,0 +1,247 @@
+<?php session_start();
+include "../../../inc/inc.koneksi.php";
+include "../../../inc/terbilang.php";
+include "../../../inc/fungsi_indotgl.php";
+include "../../../inc/fungsi_pinjaman.php";
+
+$lokasi=$_SESSION['lokasi'];
+$rcp=$_GET['rcp'];
+		$rcp=$_GET['rcp'];
+		$view=mysql_query("SELECT * FROM
+							kabupaten b, kecamatan kc, desa d, sebutan_desa sd, kelompok_$_SESSION[kd_kab] k, jenis_produk_pinjaman jpp, jenis_usaha ju, jenis_kegiatan jk, tingkat_kelompok tk,
+							fungsi_kelompok fgs, users u, sistem_angsuran sa, pinjaman_kelompok_$_SESSION[kd_kab] pk
+							WHERE
+							b.id=kc.kd_kab AND kc.id=k.lokasi AND d.id=k.desa AND d.sebutan=sd.id AND pk.id_kel=k.id AND jpp.id=pk.jenis_pp AND ju.id=k.jenis_usaha AND 			
+							jk.id=k.jenis_kegiatan AND tk.id=k.tingkat_kelompok AND fgs.id=k.fungsi_kelompok AND u.id=k.id_user AND 
+							sa.id=pk.sistem_angsuran AND pk.id='$rcp'");
+		$no=0;
+		while($row=mysql_fetch_array($view)){
+		
+											$id_pinj			=$row['id'];
+											$id_kel				=$row['id_kel'];
+											$jenis_pp			=$row['jenis_pp'];
+											$tgl_proposal		=$row['tgl_proposal'];
+											$sebutan_kades		=$row['sebutan_kades'];
+											$tgl_verifikasi		=$row['tgl_verifikasi'];
+											$angg=mysql_query("select * from pinjaman_anggota_$_SESSION[kd_kab] where id_pinkel='$id_pinj'");  /* query hitung jumlah anggota */
+											$jml_anggota=mysql_num_rows($angg);
+		
+											$alokasi			=$row['alokasi'];
+											$tgl_cair			=$row['tgl_cair'];
+											$tanggal			 = substr($tgl_cair,8,2);
+											$bulan  			 = getBulan(substr($tgl_cair,5,2));
+											$tahun  			 = substr($tgl_cair,0,4);
+											$pros_jasa			=$row['pros_jasa'];
+											$jangka				=$row['jangka'];
+											$sistem				=$row['sistem'];
+											$tempo				=$jangka/$sistem;
+											$sistem_angsuran	=$row['nama_sistem'];
+											$sa_jasa			=$row['nama_sistem'];
+											$lu					=$row['lu'];
+											$status				=$row['status'];
+											$user_id			=$row['user_id'];
+											$dus				=mysql_fetch_array(mysql_query("SELECT * FROM users u, level l WHERE u.level=l.id AND u.id='$user_id' "));
+											$nama_user			=$dus['namadepan']. " " .$dus['namabelakang']." (".$dus['nama_level'].")";
+											
+											$lokasi				=$row['lokasi'];
+											$nama_kec	=$row ['nama_kec'];
+											$alamat_kec	=$row ['alamat_kec'];
+											$telpon_kec	=$row ['telpon_kec'];
+											$email_kec	=$row ['email_kec'];
+											$web_kec	=$row ['web_kec'];
+											$visi		=$row ['visi_misi'];
+											$nama_kab	=$row ['nama_kab'];
+											$ketuaupk			=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE lokasi='$lokasi' AND level='1' AND jabatan='1' AND sejak<='$tgl_cair' "));
+											$bendaharaupk		=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE lokasi='$lokasi' AND level='1' AND jabatan='3' AND sejak<='$tgl_cair' "));
+											$ketuabkad			=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE lokasi='$lokasi' AND level='2' AND jabatan='1' AND sejak<='$tgl_cair' "));
+											$ketuabp			=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE lokasi='$lokasi' AND level='3' AND jabatan='1' AND sejak<='$tgl_cair' "));
+											$nama_desa			=$row['nama_desa'];
+											$kd_kelompok		=$row['kd_kelompok'];
+											$nama_kelompok		=$row['nama_kelompok'];
+											$alamat_kelompok	=$row['alamat_kelompok'];
+											$ketua_kelompok		=$row['ketua'];
+											$telpon				=$row['telpon'];
+											$tgl_berdiri		=$row['tgl_berdiri'];
+											$nama_jpp			=$row['nama_jpp'];
+											$jenis_usaha		=$row['nama_ju'];
+											$jenis_kegiatan		=$row['nama_jk'];
+											$tingkat_kelompok	=$row['nama_tk'];
+											$fungsi_kelompok	=$row['nama_fgs'];
+											$ketua				=$row['ketua'];
+											$sekretaris			=$row['sekretaris'];
+											$lo					=$row['lo'];
+											$uname				=$row['uname'];
+											$pass				=$row['pass'];
+											$id_user			=$row['namadepan']. " " .$row['namabelakang'];
+											$tgl_now			=date('Y-m-d');
+			
+				
+				
+	$nunggakpokok	=nunggakpokok("$tgl_now-$id_pinj");
+	$nunggakjasa	=nunggakjasa("$tgl_now-$id_pinj");
+
+?>
+
+<style type="text/css">
+<!--
+.style3 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 24px; font-weight: bold; }
+.style6 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 16px;  }
+.style9 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; }
+.top	{border-top: 1px solid #000000; }
+.bottom	{border-bottom: 1px solid #000000; }
+.left	{border-left: 1px solid #000000; }
+.right	{border-right: 1px solid #000000; }
+.all	{border: 1px solid #000000; }
+.style27 {font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; font-weight: bold; }
+.align-justify {text-align:justify; }
+.align-center {text-align:center; }
+-->
+</style>
+<body onLoad="window.print()">
+		<br>
+    <table width="97%" border="0" align="center" cellpadding="3" cellspacing="0">
+
+
+      <tr align="center">
+        <td colspan="3" class="style6 bottom">
+		<?php
+											 $logo=$row['logo'];
+											if (empty($logo)) {
+											echo "<img class='' alt='...' src='../../../images/upk.png' style='float:left; width:100; margin:10px 0 10px 20px;'>";
+											}else{
+											echo "<img class='' alt='...' src='../../../images/logo/$logo' style='float:left; width:100; margin:10px 0 10px 20px;'>";
+											}
+											
+											$nomor_bh	=$row ['nomor_bh'];
+			if (empty($nomor_bh)) {$bh="";}else{$bh="BADAN HUKUM NOMOR: $nomor_bh<br>";}
+		?>
+		<br>
+		<?php echo strtoupper("PEMERINTAH DAERAH KABUPATEN $nama_kab");?><br>
+		<span class="style3"><?php echo strtoupper($row['nama_lembaga_long']);?></span><br>
+		 <?php echo strtoupper("KECAMATAN $nama_kec");?><br>
+		<span class="style9"><?php echo "$bh $alamat_kec $nama_kec $nama_kab Telp. $telpon_kec";?><br><?php echo "E-mail: $email_kec Website: $web_kec";?></span>		</td>
+      </tr>		  
+
+		  <tr>
+			<td height="20" class="style9 top" width="11%">Nomor </td>
+			<td height="20" class="top"><span class="style9">:</span><span class="style27"> <?php echo "_________________";?></span></td>
+			<td  colspan="2" class="style9 top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo("$nama_kec");?>, <?php echo tgl_indo(date('Y-m-d'));?></td>
+		  </tr>
+		  <tr>
+			<td height="20" class="style9">Sifat</td>
+			<td height="20"><span class="style9">:</span><span class="style27"> Penting dan Rahasia</span></td>
+		  </tr>
+		  <tr>
+		    <td height="20" class="style9">Perihal</td>
+		    <td height="20"><span class="style9">:</span><span class="style27"> <u>SURAT TAGIHAN</u></span></td>
+      </tr>
+		  <tr>
+			<td width="120" height="20" class="style9">&nbsp;</td>
+			<td width="343" height="20"><span class="style27">&nbsp;&nbsp;<?php echo $jenis;?> <?php echo tgl_indo($tgl);?></span></td>
+		    <td colspan="2" class="style9" align="center">KEPADA YTH. </td>
+		  </tr>
+		  <tr>
+			<td colspan="2" rowspan="2" class="style9">&nbsp;</td>
+		    <td colspan="2" class="style27" align="center"> <?php echo "Ketua Kelompok $nama_kelompok";?></td>
+		  </tr>
+		  <tr>
+			<td colspan="2" class="style27">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Di
+            <p class="align-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo strtoupper("$nama_desa $nama_kec");?></td>
+		  </tr>
+		  <tr>
+		    <td colspan="5" class="style9 align-justify"><p>&nbsp;</p>
+	        <p>&nbsp;</p></td>
+      </tr>
+	<tr>
+		  <td class="style9 align-justify">&nbsp;</td>
+      <td colspan="4" class="style9 align-justify">
+	  <p>&nbsp;</p>
+      </td>
+  </tr>
+  </table>
+  
+
+<table width="97%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr class="style9 align-justify">
+    <td width="126" rowspan="12">&nbsp;</td>
+    <td colspan="4"><p>Dengan hormat,</p>
+      <p> Mendasar kepada Surat Perjanjian Kredit (SPK) antara Kelompok <?php echo "$nama_kelompok Desa $nama_desa";?> dengan <?php echo strtoupper($row['nama_lembaga_sort']);?> Kecamatan <?php echo $nama_kec; ?> Tanggal <?php echo tgl_indo($tgl_cair);?> Nomor : <?php echo $row['spk_no'];?>, dengan rincian pinjaman sebagai berikut :</p></td>
+  </tr>
+  <tr class="style9 align-justify">
+    <td colspan="3">&nbsp;</td>
+    <td width="468" rowspan="11">&nbsp;</td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177">Alokasi Pinjaman</td>
+	<td width="5">:</td>
+	<td> <b><?php echo number_format($alokasi);?>,-</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177">Tanggal Pencairan</td>
+	<td>:</td><td> <b><?php echo tgl_indo($tgl_cair);?></b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177">Prosentase Jasa </td>
+	<td>:</td><td> <b><?php echo $pros_jasa;?> % Perbulan</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177">Masa Angsuran</td>
+	<td>:</td><td> <b><?php echo $jangka;?> bulan</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177">Sistem Angsuran Pokok</td>
+	<td>:</td><td> <b><?php echo $sistem_angsuran;?> </b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177" colspan="4" height="35px">dan mendasar pada catatan pembukuan kami Kelompok <?php echo "$nama_kelompok Desa $nama_desa";?>, sampai dengan diterbitkannya surat Tagihan ini masih tercatat memiliki tunggakan sebagai berikut :</td>
+  </tr>
+
+  <tr class="style9 align-justify">
+	<td width="177">Tunggakan Pokok</td>
+	<td>:</td><td align="right"><b><?php echo number_format($nunggakpokok);?>,-</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177" class="bottom">Tunggakan Jasa</td>
+	<td class="bottom">:</td>
+	<td width="283" class="bottom" align="right"><b><?php echo number_format($nunggakjasa);?>,-</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td width="177"><strong>Total Tunggakan</strong></td>
+	<td>:</td><td align="right"> <b><?php echo number_format($nunggakpokok+$nunggakjasa);?>,-</b></td>
+  </tr>
+  <tr class="style9 align-justify">
+	<td colspan="4"><br>Demikian surat ini kami sampaikan, apabila terjadi perbedaan hasil perhitungan angsuran/ tunggakan mohon untuk melakukan klarifikasi dengan <?php echo strtoupper($row['nama_lembaga_sort']);?> Kecamatan <?php echo $nama_kec; ?> dan terima kasih untuk segera melakukan pelunasan tunggakan pinjamannya.</td>
+  </tr>
+  </table>
+   <table width="97%" border="0" align="center" cellpadding="3" cellspacing="0">
+  
+  <tr>
+	<?php
+	$upk=mysql_fetch_array(mysql_query("SELECT * FROM users where lokasi='$lokasi' AND level='1' AND jabatan='1' "));   
+	?>
+      <td width="462" class="style9 align-justify"></td>
+	  <td width="440" class="style9 align-justify"><div align="center">
+        <p><br><?php echo "$row[sebutan_level_1] $row[nama_lembaga_sort]";?>,<br>
+          <?php echo "Kecamatan $row[nama_kec]";?></p>
+        <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p>&nbsp;</p>
+          <p><span class="style27"><?php echo strtoupper("$upk[namadepan] $upk[namabelakang]");?></span></p>
+      </div></td>
+  </tr>
+  <tr height='140px';></tr>
+  <tr class="style9 align-justify">
+	<td colspan="4"><li style="margin-left: 70px; list-style: none;">Tembusan : <br/></li>
+<br>
+		<li style="margin-left: 70px;">
+
+		Kepala Desa <?php echo ("$nama_desa $nama_kec");?>
+	</li>
+</td>
+  </tr>
+</table>
+</body>
+<title>Surat Tagihan</title>
+      
+</body>
+		<?php } ?>
