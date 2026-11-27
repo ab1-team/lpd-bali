@@ -67,6 +67,9 @@ services:
     image: nginx:alpine
     container_name: lpd-nginx-appsbc1
     restart: unless-stopped
+    labels:
+      org.lpd-bali.app: appsbc1
+      org.lpd-bali.role: web
     depends_on:
       - appsbc1
     ports:
@@ -94,6 +97,9 @@ services:
     image: nginx:alpine
     container_name: lpd-nginx-upkv2new
     restart: unless-stopped
+    labels:
+      org.lpd-bali.app: upkv2new
+      org.lpd-bali.role: web
     depends_on:
       - upkv2new
     ports:
@@ -121,6 +127,9 @@ services:
     image: nginx:alpine
     container_name: lpd-nginx-mengwi
     restart: unless-stopped
+    labels:
+      org.lpd-bali.app: mengwi
+      org.lpd-bali.role: web
     depends_on:
       - mengwi
     ports:
