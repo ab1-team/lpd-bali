@@ -38,7 +38,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='$user_id' "));
         <div class="card header-card shape-rounded" data-card-height="120">
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-overlay dark-mode-tint"></div>
-            <div class="card-bg preload-img" data-src="../images/logo_lpd.png"></div>
+            <div class="card-bg preload-img" data-src="../images/logo_bumdes.png"></div>
         </div>
 		
 		<!-- Saldo dan Tombol Top UP-->

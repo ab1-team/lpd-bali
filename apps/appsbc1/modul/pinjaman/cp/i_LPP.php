@@ -66,13 +66,13 @@ if($idp=="") {
   <tr>
 			<td height="20" colspan="4" class="bottom">
 				<?php
-			echo "<img class='' alt='...' src='../../../images/logo_lpd.gif' style='float:left; width:50; margin-right:5px;'>";
+			echo "<img class='' alt='...' src='../../../images/logo_bumdes.png' style='float:left; width:50; margin-right:5px;'>";
 
 											
 			$nomor_bh	=$kec ['nomor_bh'];
-			if (empty($nomor_bh)) {$bh="";}else{$bh="SK Gubernur Bali No.$nomor_bh<br>";}
+			$bh="";
 		
-			echo "<div class='style9'>".strtoupper("<b>LPD $kec[sebutan_desa] $kec[nama_desa]<br>KECAMATAN $kec[nama_kec]</b>")."<br>$bh $kec[alamat_desa] Telp. $kec[telpon_desa] </div>"; 
+			echo "<div class='style9'>".strtoupper("<b>".LEMBAGA_SORT." $kec[sebutan_desa] $kec[nama_desa]<br>KECAMATAN $kec[nama_kec]</b>")."<br>$bh $kec[alamat_desa] Telp. $kec[telpon_desa] </div>"; 
 			?>	
 			</td>
 			<td height="20" colspan="2" class="bottom"><div align="right" class="style9">Dokumen Pinjaman<br>

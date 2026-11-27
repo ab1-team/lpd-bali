@@ -52,13 +52,13 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $kl="LH"; $tgl_kondisi="$y-$m-$d"
         <td colspan="3" class="style6 bottom">
 		<div class="style9 text-align-left"><?php
                     
-                        echo "<img class='' alt='...' src='../../../images/logo_lpd.gif' style='float:left; width:100; margin-left:15px;'>";
+                        echo "<img class='' alt='...' src='../../../images/logo_bumdes.png' style='float:left; width:100; margin-left:15px;'>";
                         
                                   
                   $nomor_bh =$row ['nomor_bh'];
-                  if (empty($nomor_bh)) {$bh="";}else{$bh="SK Gubernur Bali No.$nomor_bh<br>";}
+                  $bh="";
                 
-                  echo strtoupper("<b><span class='style6'>LEMBAGA PERKREDITAN DESA (LPD) </span><br> 
+                  echo strtoupper("<b><span class='style6'>".LEMBAGA_LONG." </span><br> 
 				  <span class='style3'>$row[sebutan_desa] $row[nama_desa]</span><br>
 				  KECAMATAN $row[nama_kec] KABUPATEN $row[nama_kab] </b>")."<br>
 				  $bh $row[alamat_desa] Telp. $row[telpon_desa]"; 
@@ -69,7 +69,7 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $kl="LH"; $tgl_kondisi="$y-$m-$d"
 
 		  <tr>
 			<td width="15%" height="20" class="style9 top">Nomor </td>
-			<td width="35%" height="20" class="top"><span class="style9">:</span><span class="style27"> <?php echo "______/$kl/LPD".tgl_rom($tgl)."";?></span></td>
+			<td width="35%" height="20" class="top"><span class="style9">:</span><span class="style27"> <?php echo "______/$kl/".LEMBAGA_SORT."".tgl_rom($tgl)."";?></span></td>
 			<td width="50%" colspan="2" rowspan="3" class="style9 top">&nbsp;</td>
 		  </tr>
 		  <tr>
@@ -88,7 +88,7 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $kl="LH"; $tgl_kondisi="$y-$m-$d"
 		  <tr>
 			<td colspan="2" rowspan="2" class="style9">&nbsp;</td>
 		    <td colspan="2" class="style27">
-				KEPALA LP LPD KAB. <?php echo $row['nama_kab'];?>
+				KEPALA LP <?php echo LEMBAGA_SORT; ?> KAB. <?php echo $row['nama_kab'];?>
 			</td>
 		  </tr>
 		  <tr>
@@ -102,7 +102,7 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $kl="LH"; $tgl_kondisi="$y-$m-$d"
 		  <tr>
 		  <td class="style9 align-justify">&nbsp;</td>
       <td colspan="4" class="style9 align-justify"><p>Dengan hormat,</p>
-        <p>Bersama ini kami sampaikan laporan perkembangan LPD <?php echo "$row[sebutan_desa] $row[nama_desa]";?> <span class="style27"></span><?php echo $jenis;?> <?php echo tgl_indo($tgl);?> sebagai berikut:</p>
+        <p>Bersama ini kami sampaikan laporan perkembangan <?php echo LEMBAGA_SORT; ?> <?php echo "$row[sebutan_desa] $row[nama_desa]";?> <span class="style27"></span><?php echo $jenis;?> <?php echo tgl_indo($tgl);?> sebagai berikut:</p>
 
         <p>
 		<ol class="style9">
@@ -129,14 +129,14 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal"; $kl="LH"; $tgl_kondisi="$y-$m-$d"
 	$bp=mysql_fetch_array(mysql_query("SELECT * FROM users where lokasi='$lokasi' AND level='3' AND jabatan='1' ")); 
 	?>
       <td width="462" class="style9 align-justify"><p align="center">Mengetahui,<br>
-        <?php echo "Badan Pengawas LPD $row[sebutan_desa] $row[nama_desa]"; ?><br>
+        <?php echo "Badan Pengawas ".LEMBAGA_SORT." $row[sebutan_desa] $row[nama_desa]"; ?><br>
         Ketua</p>
         <p align="center">&nbsp;</p>
         <p align="center">&nbsp;</p>
         <p align="center">&nbsp;</p>
       <p align="center"><span class="style27"><?php echo strtoupper("$bp[namadepan] $bp[namabelakang]");?></span></p></td>
 	  <td width="440" class="style9 align-justify"><div align="center">
-        <p>Lembaga Perkreditan Desa<br>
+        <p><?php echo LEMBAGA_LONG; ?><br>
           <?php echo "$row[sebutan_desa] $row[nama_desa]"; ?><br>Kepala,</p>
         <p>&nbsp;</p>
           <p>&nbsp;</p>

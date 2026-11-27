@@ -31,13 +31,13 @@ if (empty($report)) {
 
 
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',21,8,12,0);
+		$this->Image('../../../images/logo_bumdes.png',21,8,12,0);
 		
 		//Arial bold 16
 		$this->SetTextColor(128,128,128);
 		$this->SetFont('Arial','',9);
 		$this->SetX(33);
-		$this->Cell(86,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'L');
+		$this->Cell(86,0,strtoupper(LEMBAGA_LONG),0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(33);
@@ -46,7 +46,6 @@ if (empty($report)) {
 		$this->Ln(3.6);
 		$this->SetFont('Arial','I',6);
 		$this->SetX(33);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'L');
 
 		$this->SetFont('Arial','I',6);
 		$this->SetX(106);
@@ -436,7 +435,7 @@ $this->SetFont('Arial','',9);
 	$this->SetX(20);
 	$this->Cell(60,5,'Badan Pengawas',0,0,'C');
 	$this->SetX(80);
-	$this->Cell(60,5,'Kepala LPD',0,0,'C');
+	$this->Cell(60,5,'Kepala '.LEMBAGA_SORT,0,0,'C');
 	$this->SetX(140);
 	$this->Cell(60,5,'Accounting',0,0,'C');
 			

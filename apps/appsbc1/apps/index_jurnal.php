@@ -11,7 +11,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='$user_id' "));
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>SIM LPD Bali</title>
+<title>SIM <?php echo LEMBAGA_SORT; ?> Bali</title>
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/style.css">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
@@ -42,7 +42,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='$user_id' "));
         <div class="card header-card shape-rounded" data-card-height="120">
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-overlay dark-mode-tint"></div>
-            <div class="card-bg preload-img" data-src="../images/logo_lpd.png"></div>
+            <div class="card-bg preload-img" data-src="../images/logo_bumdes.png"></div>
         </div>
 		
 		<!-- Saldo dan Tombol Top UP-->

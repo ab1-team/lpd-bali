@@ -52,7 +52,7 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal";}else if($m=$m){$laporan="Bulanan"
 			  <tr height="330">
 			      	<td colspan='5'  class="left right">
 			      		<center><?php
-							echo "<img class='' alt='...' src='../../../images/logo_lpd.gif' width='25%'>";
+							echo "<img class='' alt='...' src='../../../images/logo_bumdes.png' width='25%'>";
 							
 							?>
 							</center>			      	</td>
@@ -100,7 +100,7 @@ if($d=$d){$laporan="Harian"; $jenis="Tanggal";}else if($m=$m){$laporan="Bulanan"
 	  <tr align="center">
         <td colspan="5" class="style6 all"><br>
 		<span class="style9">Diterbitkan Oleh : </span><br><br>
-		<b>LEMBAGA PERKEDITAN DESA (LPD)<BR><?php echo strtoupper("$row[sebutan_desa] $row[nama_desa]"); ?></b><br>
+		<b><?php echo strtoupper(LEMBAGA_LONG); ?><BR><?php echo strtoupper("$row[sebutan_desa] $row[nama_desa]"); ?></b><br>
 		<span class="style9">
 		<?php echo "Office: $row[alamat_desa] $row[nama_desa] $row[nama_kec] $row[nama_kab]<br>Telp.$row[telpon_desa] E-mail. $row[email_desa]";?><br>copyright&copy;<?php echo date('Y');?></span><br><br>        </td>
       </tr>

@@ -40,8 +40,8 @@ include "../../inc/fungsi_keuangan.php";
 
 	  <tr>
 		<td height="20" colspan="3" class="top left bottom">
-				<img src="../../images/logo_lpd.gif" style="width:30px; margin-right:5px; float:left;"/>
-				<div class="style9 text-align-left"><b><?php echo strtoupper("LPD Desa $row[nama_desa]");?></b><br>
+				<img src="../../images/logo_bumdes.png" style="width:30px; margin-right:5px; float:left;"/>
+				<div class="style9 text-align-left"><b><?php echo strtoupper(LEMBAGA_SORT." Desa $row[nama_desa]");?></b><br>
 				<?php echo $row['alamat_desa'];?> Telp.<?php echo $row['telpon_desa'];?>				</div>			
 		</td>
 	    <td class="style9 top bottom right" width="27%" align="right">
@@ -54,7 +54,7 @@ include "../../inc/fungsi_keuangan.php";
 	  <tr>
 	    <td width="15%" class="left" rowspan="7"><div class="rotasi">&nbsp;</div></td>
 	    <td width="30%" class="style9">Telah Diterima Dari </td>
-	    <td width="55%" colspan="2" class="style9 right">: <strong><?php echo strtoupper("LPD Desa $row[nama_desa] Kecamatan $row[nama_kec]"); ?></strong><p class="bottom"></td>
+	    <td width="55%" colspan="2" class="style9 right">: <strong><?php echo strtoupper(LEMBAGA_SORT." Desa $row[nama_desa] Kecamatan $row[nama_kec]"); ?></strong><p class="bottom"></td>
       </tr>
 	  <tr>
 	    <td class="style9">Uang Sebanyak </td>

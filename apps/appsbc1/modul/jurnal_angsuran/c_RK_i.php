@@ -47,7 +47,7 @@ if($idp=="") {
 <table width="97%" border="0" align="center" cellpadding="3" cellspacing="0">
   <tr>
 			<td height="20" colspan="2" class="bottom">
-				<div class="style9 text-align-left"><?php echo "LPD $kec[sebutan_desa] $kec[nama_desa]";?><br>
+				<div class="style9 text-align-left"><?php echo LEMBAGA_SORT." $kec[sebutan_desa] $kec[nama_desa]";?><br>
 				<?php echo $kec['alamat_desa'];?> <i class="fa fa-phone-square"></i> <?php echo $kec['telpon_desa'];?>
 				</div>
 			</td>

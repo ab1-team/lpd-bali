@@ -169,8 +169,8 @@ $tahun_pakai	=substr($tgl_pakai,0,4);
 							<header>
 								<legend><p class="h3">Awal Penggunaan</p></legend>
 							</header>
-							<p>Awal Penggunaan Sistem Informasi Manajemen (SIM) Lembaga Perkreditan Desa (LPD)<br><br>
-							<span class="fw-normal h2">LPD <?php echo $row['sebutan_desa'];?> <?php echo $row['nama_desa'];?> </span><br>
+							<p>Awal Penggunaan Sistem Informasi Manajemen (SIM) <?php echo LEMBAGA_LONG; ?><br><br>
+							<span class="fw-normal h2"><?php echo LEMBAGA_SORT; ?> <?php echo $row['sebutan_desa'];?> <?php echo $row['nama_desa'];?> </span><br>
 							<hr>
 							ditetapkan sejak tanggal :
 							
@@ -184,14 +184,14 @@ $tahun_pakai	=substr($tgl_pakai,0,4);
 								<li>Khusus Jurnal Angsuran baik pokok maupun jasa, telah diinputkan dengan jumlah komulatif per kelompok sampai dengan bulan <?php echo getBulan($bulan_pakai-1);?> <?php echo $tahun_pakai; ?></li>
 							</ul>
 							<p>
-							Selanjutnya Pihak LPD akan melanjutkan transaksi dengan menggunakan Sistem ini mulai dari transaksi pada tanggal <?php echo tgl_indo($tgl_pakai);?>.<br>
+							Selanjutnya Pihak <?php echo LEMBAGA_SORT; ?> akan melanjutkan transaksi dengan menggunakan Sistem ini mulai dari transaksi pada tanggal <?php echo tgl_indo($tgl_pakai);?>.<br>
 							Demikian keterangan ini dibuat sebagai bukti legal atas migrasi data dari format excel ke Sistem ini, apabila dikemudian hari diminta keterangan dari pihak
 							yang berkepentingan maupun auditor kami siap memberikan penjelasan lebih lanjut.<br><br>
 							</p>
 							<p class="fw-semi-bold pull-right">
 							<?php echo $row['nama_desa'];?>, <?php echo tgl_indo($tgl_pakai);?><br>
 							Tim Migrasi Data<br>
-							LPD-Bali
+							<?php echo LEMBAGA_SORT; ?>-Bali
 							</p>
                         </div>
 						

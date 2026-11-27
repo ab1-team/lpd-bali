@@ -1,7 +1,16 @@
+<?php
+include "inc/inc.koneksi.php";
+
+$actual_link = "$_SERVER[HTTP_HOST]";
+
+$desa	=mysql_query("SELECT * FROM desa WHERE web_desa='$actual_link' ");
+
+$lpd  = mysql_fetch_array ($desa);
+?>
 <!DOCTYPE html><html>
 <head>
-    <link rel="shortcut icon" href="images/logo_lpd.gif" type="image/x-icon">
-	<title>LPD-Bali - V.2.0</title>
+    <link rel="shortcut icon" href="images/logo_bumdes.png" type="image/x-icon">
+	<title>SIM <?php echo LEMBAGA_SORT; ?> - V.2.0</title>
     <link href="css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
@@ -50,24 +59,12 @@ background: url(images/bg_main.png) no-repeat fixed;
 </head>
 <body>
 
-<?php
-include "inc/inc.koneksi.php";
-
-$actual_link = "$_SERVER[HTTP_HOST]";
-
-$desa	=mysql_query("SELECT * FROM desa WHERE web_desa='$actual_link' ");
-
-$lpd  = mysql_fetch_array ($desa);
-
-
-?>
-
 <div class="widget-body">
 <div class="table-responsive">
 <table id="datatable-table" class="table table-hover">
                         <thead class="bg-primary text-white">
                         <tr>
-							<th class="no-sort"><i class="glyphicon glyphicon-th-large"></i> LEMBAGA PERKREDITAN DESA [LPD] DESA ADAT <?php echo $lpd['nama_desa'];?><span class="pull-right"><div class="efek-ketik">SISTEM INFORMASI MANAJEMEN</div></span></th>
+							<th class="no-sort"><i class="glyphicon glyphicon-th-large"></i> <?php echo strtoupper(LEMBAGA_LONG); ?> <?php echo $lpd['nama_desa'];?><span class="pull-right"><div class="efek-ketik">SISTEM INFORMASI MANAJEMEN</div></span></th>
                         </tr>
                         </thead>
 </table>
@@ -76,7 +73,7 @@ $lpd  = mysql_fetch_array ($desa);
 <br><br><br><br>	
 <div class="row mt-xlg">
 	<div class="col-sm-4 text-align-center">
-		<img class="mt-xlg" src="images/logo_lpd.gif" style="width:100px;"/>
+		<img class="mt-xlg" src="images/logo_bumdes.png" style="width:100px;"/>
 	</div>
 	<div class="col-sm-4">
 
@@ -107,14 +104,14 @@ $lpd  = mysql_fetch_array ($desa);
 								
 								<p class="fs-sm text-muted text-align-center">
 									Development by. Asta Brata Teknologi, PT<br>
-									LPD-Bali&copy;2018.All Right Reserved.
+									<?php echo LEMBAGA_SORT; ?>-Bali&copy;2018.All Right Reserved.
 								</p>
 							</form>
 						</div>
 		
 	</div>
 	<div class="col-sm-4 text-align-center">
-		<img class="mt-xlg" src="images/logo_simlpd.png" style="width:250px;"/>
+		<img class="mt-xlg" src="images/logo_bumdes.png" style="width:250px;"/>
 	</div>
 </div>
 </div>

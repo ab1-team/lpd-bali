@@ -19,13 +19,13 @@ class PDF extends FPDF
     $row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten b, kecamatan c, sebutan_desa sd, desa d where b.id=c.kd_kab and c.id=d.kd_kec and sd.id=d.sebutan AND d.id='$_SESSION[lokasi]' "));
 
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',21,8,12,0);
+		$this->Image('../../../images/logo_bumdes.png',21,8,12,0);
 		
 		//Arial bold 15
 		$this->SetTextColor(128,128,128);
 		$this->SetFont('Arial','',9);
 		$this->SetX(33);
-		$this->Cell(85,0,'LEMBAGA PERKREDITAN DESA (LPD) ',0,0,'L');
+		$this->Cell(85,0,strtoupper(LEMBAGA_LONG).' ',0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(33);
@@ -34,7 +34,6 @@ class PDF extends FPDF
 		$this->Ln(3.5);
 		$this->SetFont('Arial','I',6);
 		$this->SetX(33);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'L');
 
 		$this->SetFont('Arial','I',6);
 		$this->SetX(105);
@@ -186,7 +185,7 @@ $this->SetY($Y_Fields_Name_position);
 		
 		$this->SetFont('Arial','',9);
 		$this->SetX(22);
-		$this->MultiCell(165,4,'pada tanggal '.tgl_indo(date('Y-m-d')).' sebagai tindak lanjut pernyataan pelunasan hutang yang sudah diakui/legalisasi oleh Ketua LPD Cengkok.',0);
+		$this->MultiCell(165,4,'pada tanggal '.tgl_indo(date('Y-m-d')).' sebagai tindak lanjut pernyataan pelunasan hutang yang sudah diakui/legalisasi oleh Ketua '.LEMBAGA_SORT.' Cengkok.',0);
 	  	$this->Ln(7);
 		
 		
@@ -222,7 +221,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->Ln(4);
 		
 		$this->SetX(15);
-		$this->Cell(65,0,'Kepala LPD Cengkok,',0,0,'C');
+		$this->Cell(65,0,'Kepala '.LEMBAGA_SORT.' Cengkok,',0,0,'C');
 		$this->SetX(75);
 		$this->Cell(65,0,'Yang Menyerahkan',0,0,'C');
 		$this->SetX(135);

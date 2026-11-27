@@ -69,7 +69,7 @@ if($totalsaldo==0) { $total_saldo="PELUNASAN"; }else{$total_saldo="SALDO Rp.$tot
 
 $total_bayar=number_format($pokok+$jasa+$denda);
 $tgltransaksi	=tgl_ind($tgl_transaksi);
-$TextDecoded="[LPD $nama_desa] $tgltransaksi TELAH DITERIMA ANGSURAN $nama Rp.$total_bayar, $total_saldo, TERIMAKASIH. INFO-HUB:$telpon_desa.";
+$TextDecoded="[".LEMBAGA_SORT." $nama_desa] $tgltransaksi TELAH DITERIMA ANGSURAN $nama Rp.$total_bayar, $total_saldo, TERIMAKASIH. INFO-HUB:$telpon_desa.";
 $query=mysql_query("INSERT INTO sms_ucapan (id,DestinationNumber,TextDecoded,CreatorID)
 				VALUES('','$telpon','$TextDecoded', '$_SESSION[lokasi]')");
 				

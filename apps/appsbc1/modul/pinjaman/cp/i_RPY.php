@@ -30,13 +30,13 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten b, kecamatan c, sebu
 			<td height="20" colspan="2" class="bottom" width="5%">
 				<div class="style9 text-align-left"><?php
                     
-                        echo "<img class='' alt='...' src='../../../images/logo_lpd.gif' style='float:left; width:70; margin-right:5px;'>";
+                        echo "<img class='' alt='...' src='../../../images/logo_bumdes.png' style='float:left; width:70; margin-right:5px;'>";
                         
                                   
                   $nomor_bh =$row ['nomor_bh'];
-                  if (empty($nomor_bh)) {$bh="";}else{$bh="SK Gubernur Bali No.$nomor_bh<br>";}
+                  $bh="";
                 
-                  echo "<div class='style9'>".strtoupper("<b>LEMBAGA PERKREDITAN DESA (LPD) <br> $row[sebutan_desa] $row[nama_desa]<br>KECAMATAN $row[nama_kec] KABUPATEN $row[nama_kab] </b>")."<br>$bh $row[alamat_desa] Telp. $row[telpon_desa] </div>"; 
+                  echo "<div class='style9'>".strtoupper("<b>".LEMBAGA_LONG." <br> $row[sebutan_desa] $row[nama_desa]<br>KECAMATAN $row[nama_kec] KABUPATEN $row[nama_kab] </b>")."<br>$bh $row[alamat_desa] Telp. $row[telpon_desa] </div>"; 
                   ?>      
 				</div>
 			</td>

@@ -22,8 +22,8 @@ date_default_timezone_set('Asia/Jakarta')
 		  $(".preloader").fadeOut();
 		})
 	</script>
-    <link rel="shortcut icon" href="images/logo_lpd.gif" type="image/x-icon">
-	<title>SIM LPD <?php echo "$nama_desa Kecamatan $nama_kec";?> - V.2.0</title>
+    <link rel="shortcut icon" href="images/logo_bumdes.png" type="image/x-icon">
+	<title>SIM <?php echo LEMBAGA_SORT; ?> <?php echo "$nama_desa Kecamatan $nama_kec";?> - V.2.0</title>
     <link href="css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
     <!--[if IE 9]>
@@ -98,13 +98,13 @@ $_SESSION['jum_pinj_i']=$jum_pinj_i;
         <header class="logo hidden-xs mb-n-sm">
             <a href="?p=home">
 			<span class="thumb-sm avatar">
-				<img class='' alt='...' src='images/logo_lpd.gif'>
+				<img class='' alt='...' src='images/logo_bumdes.png'>
 			</span>
 			</a>
         </header>
 			<div class="sidebar-alerts text-align-center">
 				<div class="alert fade in">
-					<b>  LPD <?php  echo strtoupper($des['nama_desa']); //LENCANA?></b>
+					<b>  <?php echo strtoupper(LEMBAGA_SORT); ?> <?php  echo strtoupper($des['nama_desa']); //LENCANA?></b>
 					<br>
 					<small><?php  echo substr($des['alamat_desa'],0,24); //LENCANA?></small>
 				</div>

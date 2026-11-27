@@ -32,12 +32,12 @@ class PDF extends FPDF
 
 		
 		//Logo 
-		$this->Image('../../../images/logo_lpd.gif',40,10,20,0);
+		$this->Image('../../../images/logo_bumdes.png',40,10,20,0);
 			
 		$this->SetY(12);
 		$this->SetFont('Arial','',14);
 		$this->SetX(30);
-		$this->Cell(0,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'C');
+		$this->Cell(0,0,strtoupper(LEMBAGA_LONG),0,0,'C');
 		$this->Ln(6);
 		$this->SetFont('Arial','B',16);
 		$this->SetX(30);
@@ -47,7 +47,6 @@ class PDF extends FPDF
 		$this->SetFont('Arial','I',8);
 		$this->SetTextColor(0,0,0);
 		$this->SetX(30);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'C');
 		$this->Ln(1);
 		
 		$this->SetX(30);
@@ -62,7 +61,7 @@ class PDF extends FPDF
 		$this->SetX(35);
 		$this->Cell(20,5,'Nomor',0,0,'L');
 		$this->Cell(2,5,': ',0,0,'L');
-		$this->Cell(88,5,$nomor.'/LPD.'.$row['inisial'].''.tgl_rom($tgl),0,0,'L');
+		$this->Cell(88,5,$nomor.'/'.LEMBAGA_SORT.'.'.$row['inisial'].''.tgl_rom($tgl),0,0,'L');
 		$this->Cell(45,5,ucwords($row['nama_desa']).',     '.tgl_indo($tgl),0,0,'R');
 		$this->Ln(5);
 		
@@ -75,7 +74,7 @@ class PDF extends FPDF
 		$this->SetX(35);
 		$this->Cell(20,5,'Perihal',0,0,'L');
 		$this->Cell(2,5,': ',0,0,'L');
-		$this->Cell(88,5,'Laporan Perkembangan LPD',0,0,'L');
+		$this->Cell(88,5,'Laporan Perkembangan '.LEMBAGA_SORT,0,0,'L');
 		$this->Ln(5);
 		
 		$this->SetX(35);
@@ -90,7 +89,7 @@ class PDF extends FPDF
 		$this->Ln(5);
 		
 		$this->SetX(57);
-		$this->Cell(88,5,'Kepala LP LPD Kabupaten '.$row['nama_kab'],0,0,'L');
+		$this->Cell(88,5,'Kepala LP '.LEMBAGA_SORT.' Kabupaten '.$row['nama_kab'],0,0,'L');
 		$this->Ln(5);
 		
 		$this->SetX(57);
@@ -103,7 +102,7 @@ class PDF extends FPDF
 		$this->Ln(6);
 		
 		$this->SetX(57);
-		$this->MultiCell(133,5,'Bersama ini kami sampaikan Laporan Perkembangan LPD '.$row['sebutan_desa'].' '.$row['nama_desa'].' sampai dengan '.$jenis.' '.tgl_indo($tgl).' sebagai berikut:',0);
+		$this->MultiCell(133,5,'Bersama ini kami sampaikan Laporan Perkembangan '.LEMBAGA_SORT.' '.$row['sebutan_desa'].' '.$row['nama_desa'].' sampai dengan '.$jenis.' '.tgl_indo($tgl).' sebagai berikut:',0);
 		$this->Ln(1);
 		
 		$this->SetX(60);
@@ -150,11 +149,11 @@ class PDF extends FPDF
 		$this->SetX(35);
 		$this->Cell(75,0,'Mengetahui',0,0,'C');
 		$this->SetX(110);
-		$this->Cell(75,0,'Lembaga Perkreditan Desa (LPD)',0,0,'C');
+		$this->Cell(75,0,LEMBAGA_LONG,0,0,'C');
 		$this->Ln(4);
 		
 		$this->SetX(35);
-		$this->Cell(75,0,'Badan Pengawasan LPD',0,0,'C');
+		$this->Cell(75,0,'Badan Pengawasan '.LEMBAGA_SORT,0,0,'C');
 		$this->SetX(110);
 		$this->Cell(75,0,$row['sebutan_desa'].' '.$row['nama_desa'],0,0,'C');
 		$this->Ln(4);

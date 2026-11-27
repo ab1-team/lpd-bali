@@ -103,14 +103,14 @@ $jtras=mysql_num_rows(mysql_query("SELECT * FROM transaksi_$_SESSION[lokasi] WHE
 if($jtras<9){$jtra="0$jtras";}else{$jtra="$jtras";}
 
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',15,5,12,0);
+		$this->Image('../../../images/logo_bumdes.png',15,5,12,0);
 		
 		//arial bold 15
 		$this->SetTextColor(0,0,0);
 		$this->SetFont('arial','',9);
 		$this->SetY(7);
 		$this->SetX(28);
-		$this->Cell(85,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'L');
+		$this->Cell(85,0,strtoupper(LEMBAGA_LONG),0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('arial','I',10);
 		$this->SetX(28);

@@ -36,7 +36,7 @@ class PDF extends FPDF
 		$row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten b, kecamatan c, sebutan_desa sd, desa d where b.id=c.kd_kab and c.id=d.kd_kec and sd.id=d.sebutan AND d.id='$lokasi' "));
 
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',5,4.5,8.5,0);
+		$this->Image('../../../images/logo_bumdes.png',5,4.5,8.5,0);
 		
 		
 		
@@ -45,7 +45,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','B',14);
 		$this->SetY(8.5);
 		$this->SetX(14);
-		$this->Cell(75,0,'LPD CARD',0,0,'L');
+		$this->Cell(75,0,LEMBAGA_SORT.' CARD',0,0,'L');
 
 			
 

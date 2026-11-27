@@ -49,8 +49,8 @@ namun jika sesuai dengan SOP pinjaman tsb telah dinyatakan lunas, silahkan klik 
 		<td class="style7">
 			<h3 class="style6">Keterangan Pelunasan ID.<?php echo $id_pinj;?></h3>
 
-			<p class='text-justify'>Dengan mempertimbangkan Standar Operasional Prosedur (SOP) yang berlaku di  LPD Desat Adat Cengkok
-			dan mengingat sumpah jabatan, dengan ini Kepala LPD Cengkok Kecamatan <?php echo $row['nama_kec'];?> menyatakan dengan sebenar-benarnya
+			<p class='text-justify'>Dengan mempertimbangkan Standar Operasional Prosedur (SOP) yang berlaku di  <?php echo LEMBAGA_SORT; ?> Desat Adat Cengkok
+			dan mengingat sumpah jabatan, dengan ini Kepala <?php echo LEMBAGA_SORT; ?> Cengkok Kecamatan <?php echo $row['nama_kec'];?> menyatakan dengan sebenar-benarnya
 			bahwa :
 			</p>
 		</td>
@@ -119,7 +119,7 @@ namun jika sesuai dengan SOP pinjaman tsb telah dinyatakan lunas, silahkan klik 
 			<p>Pinjaman tersebut diatas telah kami nyatakan LUNAS dan Surat Perjanjian Kredit (SPK) nomor <?php echo $row['spk_no']; ?> tanggal <?php echo $tgl_cair; ?> dinyatakan selesai beserta seluruh hak dan kewajibannya.</p>
 			</td>
 			<td width="25%" align="center" class="top">
-				<p><?php echo strtoupper("$r[nama_jabatan] LPD Cengkok"); ?></p>
+				<p><?php echo strtoupper("$r[nama_jabatan] ".LEMBAGA_SORT." Cengkok"); ?></p>
              <br>
              <br>
 

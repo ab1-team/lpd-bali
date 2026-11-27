@@ -111,7 +111,7 @@ $("#TampilPinjaman").load('modul/pinjaman/register/tampil_tugas.php');
 									Rekomendasi Analis <span class="label label-info pull-right"><?php echo $jum_ver1_i;?></span>
 								</a>
 								<a href="modul/pinjaman/cp/i_LP.php?&sT=V2" target="_blank" class="list-group-item text-ellipsis">
-									Approved Kepala LPD <span class="label label-primary pull-right"><?php echo $jum_ver2_i;?></span>
+									Approved Kepala <?php echo LEMBAGA_SORT; ?> <span class="label label-primary pull-right"><?php echo $jum_ver2_i;?></span>
 								</a>
 								<a href="modul/pinjaman/cp/i_LP.php?&sT=V3" target="_blank" class="list-group-item text-ellipsis">
 									Approved Bawas <span class="label label-success pull-right"><?php echo $jum_ver3_i;?></span>

@@ -44,16 +44,16 @@ include "../../inc/phpqrcode/qrlib.php"; //Library Pembuat QR-Code
        <tr>
 			<td height="20" colspan="3" class="all">
 				<div class="style16 text-align-left">
-				<img class='' alt='...' src='../../images/logo_lpd.gif' style='float:left; width:90; margin-left:20px;'/>
+				<img class='' alt='...' src='../../images/logo_bumdes.png' style='float:left; width:90; margin-left:20px;'/>
 				<?php
-					echo "<div class='style16'>".strtoupper("<b>LEMBAGA PERKREDITAN DESA (LPD) <br> $lem[sebutan_desa] $lem[nama_desa]</b>")."<br><span class='style27'>$lem[alamat_desa] Telp. $lem[telpon_desa]</span> </div>"; 
+					echo "<div class='style16'>".strtoupper("<b>".LEMBAGA_LONG." <br> $lem[sebutan_desa] $lem[nama_desa]</b>")."<br><span class='style27'>$lem[alamat_desa] Telp. $lem[telpon_desa]</span> </div>"; 
                   ?>      
 				</div>			
 			</td>
 	  </tr>
        <tr>
          <td height="20" colspan="3" align="center" class="style10 left right">SURAT DEPOSITO BERJANGKA<br>
-             <span class="style9">NOMOR. <?php echo "$row[nomor_rekening]/SB/LPD".tgl_rom($tgl_buka).""; ?></span></td>
+             <span class="style9">NOMOR. <?php echo "$row[nomor_rekening]/SB/".LEMBAGA_SORT.tgl_rom($tgl_buka).""; ?></span></td>
        </tr>
        <tr>
          <td height="20" colspan="3" class="left right">Telah diterima penyetoran deposito berjangka dari : </td>
@@ -75,7 +75,7 @@ include "../../inc/phpqrcode/qrlib.php"; //Library Pembuat QR-Code
          <td height="20" colspan="2" class="right">: <strong><?php echo strtoupper(ucwords(toTerbilang($row['jumlah']))); ?> RUPIAH</strong></td>
        </tr>
        <tr>
-         <td height="20" colspan="3" class="left right">Untuk disimpan berjangka dalam waktu <strong><?php echo $row['jangka'];?> </strong>bulan, mulai sejak tanggal <strong><?php echo tgl_indo($row['tgl_buka']);?></strong> sampai dengan tanggal <strong><?php echo tgl_indo($tgl_lunas);?></strong> dengan bunga <strong><?php echo $pros_jasa; ?>%</strong> per bulan dengan syarat-syarat yang telah ditetapkan oleh LPD <?php echo "$lem[sebutan_desa] $lem[nama_desa]";?>.</td>
+         <td height="20" colspan="3" class="left right">Untuk disimpan berjangka dalam waktu <strong><?php echo $row['jangka'];?> </strong>bulan, mulai sejak tanggal <strong><?php echo tgl_indo($row['tgl_buka']);?></strong> sampai dengan tanggal <strong><?php echo tgl_indo($tgl_lunas);?></strong> dengan bunga <strong><?php echo $pros_jasa; ?>%</strong> per bulan dengan syarat-syarat yang telah ditetapkan oleh <?php echo LEMBAGA_SORT; ?> <?php echo "$lem[sebutan_desa] $lem[nama_desa]";?>.</td>
        </tr>
        <tr>
          <td height="20" class="left">&nbsp;</td>
@@ -104,7 +104,7 @@ if (!file_exists($qr)) {
        </tr>
        <tr>
          <td height="20" colspan="3" class="left right"><strong>Kwitansi:</strong><br>
-         Yang bertanda tangan dibawah ini telah menerima kembali uang simpanan berjangka nomor <?php echo "$row[nomor_rekening]/SB/LPD".tgl_rom($tgl_buka).""; ?> seperti tersebut diatas dari Lembaga Perkreditan Desa (LPD) <?php echo "$lem[sebutan_desa] $lem[nama_desa]";?>.</td>
+         Yang bertanda tangan dibawah ini telah menerima kembali uang simpanan berjangka nomor <?php echo "$row[nomor_rekening]/SB/".LEMBAGA_SORT.tgl_rom($tgl_buka).""; ?> seperti tersebut diatas dari <?php echo LEMBAGA_LONG; ?> <?php echo "$lem[sebutan_desa] $lem[nama_desa]";?>.</td>
        </tr>
        <tr>
          <td height="20" class="left bottom center style16" colspan="2">Rp. <?php echo number_format($row['jumlah'],0,",",".");?></td>

@@ -179,7 +179,7 @@
 																Demi keamanan, anda harus mematuhi aturan berikut:<br>
 																<ul>
 																	<li>
-																		Registrasikan nomor anda ke Technical Support kami dengan cara ketik <b>LPD</b>&laquo;spasi&raquo;<b>$_SESSION[kd_kab]-$_SESSION[lokasi]</b>&laquo;spasi&raquo;<b>$_SESSION[namadepan]</b>&laquo;spasi&raquo;<b>$_SESSION[unit]</b> kirim via WA/SMS ke 081 56 777 2008 nomor yang belum teregistrasi tidak akan kami layani, ini semata-mata hanya untuk keamanan data.<br>
+																		Registrasikan nomor anda ke Technical Support kami dengan cara ketik <b>".LEMBAGA_SORT."</b>&laquo;spasi&raquo;<b>$_SESSION[kd_kab]-$_SESSION[lokasi]</b>&laquo;spasi&raquo;<b>$_SESSION[namadepan]</b>&laquo;spasi&raquo;<b>$_SESSION[unit]</b> kirim via WA/SMS ke 081 56 777 2008 nomor yang belum teregistrasi tidak akan kami layani, ini semata-mata hanya untuk keamanan data.<br>
 																	</li>
 																	<li>
 																		Jika permasalahan berkaitan dengan transaksi, sertakan ID Transaksi yang dimaksud. Dan jika berkaitan dengan pinjaman, sertakan ID Pinjamannya (Loan ID).

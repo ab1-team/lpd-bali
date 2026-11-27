@@ -45,13 +45,13 @@ class PDF extends FPDF
 
 		
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',21,8,12,0);
+		$this->Image('../../../images/logo_bumdes.png',21,8,12,0);
 		
 		//Arial bold 15
 		$this->SetTextColor(128,128,128);
 		$this->SetFont('Arial','',9);
 		$this->SetX(33);
-		$this->Cell(85,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'L');
+		$this->Cell(85,0,strtoupper(LEMBAGA_LONG),0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(33);
@@ -60,7 +60,6 @@ class PDF extends FPDF
 		$this->Ln(3.5);
 		$this->SetFont('Arial','I',6);
 		$this->SetX(33);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'L');
 
 		$this->SetFont('Arial','I',6);
 		$this->SetX(105);
@@ -236,7 +235,7 @@ $this->SetFont('Arial','',8);
 	$this->SetX(20);
 	$this->Cell(60,6,'Badan Pengawas',0,0,'C');
 	$this->SetX(80);
-	$this->Cell(60,6,'Kepala LPD',0,0,'C');
+	$this->Cell(60,6,'Kepala '.LEMBAGA_SORT,0,0,'C');
 	$this->SetX(140);
 	$this->Cell(60,6,'Accounting',0,0,'C');
 			

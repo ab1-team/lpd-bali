@@ -127,7 +127,7 @@ function MM_openBrWindow(theURL,winName,features) { //membuka window untuk print
 									
 									<div class="form-group">
 										<span><i class="glyphicon glyphicon-lock"></i></span>
-										<label class="fs-sm"> Untuk Edit atau Delete, masukkan PIN Kepala LPD</label>
+										<label class="fs-sm"> Untuk Edit atau Delete, masukkan PIN Kepala <?php echo LEMBAGA_SORT; ?></label>
 										<input type="password" name="pin2" id="pin2" class="form-control"
 											required="required" autocomplete="off" placeholder="-- Masukkan PIN atau Password Ketua/Direktur --">
 									</div>

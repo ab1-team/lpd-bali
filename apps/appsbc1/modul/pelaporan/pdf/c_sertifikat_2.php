@@ -26,7 +26,7 @@ class PDF extends FPDF
 		//Frame
 		$this->Image('../../../images/frame2.jpg',4,3,203,160);
 		//Logo
-		$this->Image('../../../images/logo_lpd.png',17,18,12,0);
+		$this->Image('../../../images/logo_bumdes.png',17,18,12,0);
 		
 		$this->Ln(-4.5);
 		$this->SetFillColor(255,255,255);		
@@ -39,7 +39,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','',9);
 		$this->SetY(20);
 		$this->SetX(30);
-		$this->Cell(85,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'L');
+		$this->Cell(85,0,strtoupper(LEMBAGA_LONG),0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(30);
@@ -48,7 +48,6 @@ class PDF extends FPDF
 		$this->Ln(3.5);
 		$this->SetFont('Arial','I',6);
 		$this->SetX(30);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'L');
 
 		$this->SetFont('Arial','I',6);
 		$this->SetX(100);
@@ -118,7 +117,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->Cell(0,0,'SERTIFIKAT DEPOSITO BERJANGKA',0,0,'C');
 		$this->Ln(4);
 		$this->SetFont('Arial','',9);
-		$this->Cell(0,0,'Nomor : '.$ids.'/SB/LPD'.tgl_rom($tgl_buka),0,0,'C');
+		$this->Cell(0,0,'Nomor : '.$ids.'/SB/'.LEMBAGA_SORT.tgl_rom($tgl_buka),0,0,'C');
 		$this->Ln(8);
 		
 //Garis Garis
@@ -176,7 +175,7 @@ $this->SetY($Y_Fields_Name_position);
 		
 		$this->SetFont('Arial','',9);
 		$this->SetX(30);
-		$this->MultiCell(161,4,'Untuk disimpan berjangka dalam waktu '.$r['jangka'].' bulan, mulai sejak tanggal '.tgl_indo($r['tgl_buka']).' sampai dengan tanggal '.tgl_indo($tgl_lunas).' dengan bunga '.$pros_jasa.'% per bulan dengan syarat-syarat yang telah ditetapkan oleh LPD '.$row['sebutan_desa'].' '.$row['nama_desa'].'.',0);
+		$this->MultiCell(161,4,'Untuk disimpan berjangka dalam waktu '.$r['jangka'].' bulan, mulai sejak tanggal '.tgl_indo($r['tgl_buka']).' sampai dengan tanggal '.tgl_indo($tgl_lunas).' dengan bunga '.$pros_jasa.'% per bulan dengan syarat-syarat yang telah ditetapkan oleh '.LEMBAGA_SORT.' '.$row['sebutan_desa'].' '.$row['nama_desa'].'.',0);
 		$this->Ln(-2);
 
 
@@ -218,7 +217,7 @@ $u1=mysql_fetch_array(mysql_query("SELECT * FROM users where jabatan='1' AND lev
 	$this->Ln();
 	
 	$this->SetX(30);
-	$this->MultiCell(161,4,'Yang bertanda tangan dibawah ini telah menerima kembali uang simpanan berjangka nomor '.$ids.'/SB/LPD'.tgl_rom($tgl_buka).' seperti tersebut diatas dari LPD '.$row['sebutan_desa'].' '.$row['nama_desa'].'.',0);
+	$this->MultiCell(161,4,'Yang bertanda tangan dibawah ini telah menerima kembali uang simpanan berjangka nomor '.$ids.'/SB/'.LEMBAGA_SORT.tgl_rom($tgl_buka).' seperti tersebut diatas dari '.LEMBAGA_SORT.' '.$row['sebutan_desa'].' '.$row['nama_desa'].'.',0);
 	$this->Ln(0);
 	
 	$this->SetFont('Arial','',9);

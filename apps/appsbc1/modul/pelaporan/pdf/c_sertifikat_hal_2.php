@@ -86,7 +86,7 @@ $this->SetY($Y_Fields_Name_position);
 	    $this->SetX(22);
 		$this->Cell(4,4,'2.',0,0,'L');
 		$this->SetX(29);
-		$this->MultiCell(160,4,'Segala perubahan-perubahan nama, alamat, tanda tangan, dan lain-lain yang menyimpang dan penjelasan-penjelasan yang pernah diberikan LPD Desa Adat Cengkok harus diberitahukan dengan tertulis.',0);
+		$this->MultiCell(160,4,'Segala perubahan-perubahan nama, alamat, tanda tangan, dan lain-lain yang menyimpang dan penjelasan-penjelasan yang pernah diberikan '.LEMBAGA_SORT.' Desa Adat Cengkok harus diberitahukan dengan tertulis.',0);
 		$this->Ln(1);
 
         $this->SetFont('Arial','',8);
@@ -107,7 +107,7 @@ $this->SetY($Y_Fields_Name_position);
 	    $this->SetX(22);
 		$this->Cell(4,4,'5.',0,0,'L');
 		$this->SetX(29);
-		$this->MultiCell(160,4,'Pemegang Simpanan Berjangka harus tunduk kepada syarat-syarat umum dan ketentuan-ketentuan lain yang telah dan ditetapkan kemudian oleh LPD Desa Adat Cengkok.',0);
+		$this->MultiCell(160,4,'Pemegang Simpanan Berjangka harus tunduk kepada syarat-syarat umum dan ketentuan-ketentuan lain yang telah dan ditetapkan kemudian oleh '.LEMBAGA_SORT.' Desa Adat Cengkok.',0);
 		$this->Ln(1);
 
         $this->SetFont('Arial','',8);
@@ -210,7 +210,7 @@ $this->Ln(3);
 		
 		$this->SetFont('Arial','',8);
 		$this->SetX(22);
-		$this->MultiCell(174,4,'Dalam hal ini bertindak untuk dan atas nama Pemegang Surat Simpanan Berjangka No '.$ids.'/SB/LPD'.tgl_rom($tgl_buka).' menyatakan telah menyetujui/ menerima baik syarat-syarat umum yang telah ditetapkan kemudian oleh LPD DESA ADAT CENGKOK.',0);
+		$this->MultiCell(174,4,'Dalam hal ini bertindak untuk dan atas nama Pemegang Surat Simpanan Berjangka No '.$ids.'/SB/'.LEMBAGA_SORT.tgl_rom($tgl_buka).' menyatakan telah menyetujui/ menerima baik syarat-syarat umum yang telah ditetapkan kemudian oleh '.strtoupper(LEMBAGA_SORT).' DESA ADAT CENGKOK.',0);
 		$this->Ln(0);
 	    
 

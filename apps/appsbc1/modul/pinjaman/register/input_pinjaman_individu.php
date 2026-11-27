@@ -419,7 +419,7 @@ if($jump>0 AND $action!="tambah") {
                                     <br>
 									    <label class='fs-sm'>Pinjaman <?php echo $_SESSION['lembaga'];?></label>
                                         <input type="text" value="<?php echo $pasiva[1]; ?>" name="pinjaman_lpd" id="pinjaman_lpd"  class="form-control" <?php echo $disabled ?> onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);"
-										required="required" autocomplete="off" placeholder="Pinjaman LPD">
+										required="required" autocomplete="off" placeholder="Pinjaman <?php echo LEMBAGA_SORT; ?>">
                                     <br>
 									    <label class='fs-sm'>Pinjaman Bank</label>
                                         <input type="text" value="<?php echo $pasiva[2]; ?>" name="pinjaman_bank" id="pinjaman_bank"  class="form-control" <?php echo $disabled ?> onkeydown="return numbersonly(this, event);" onkeyup="javascript:tandaPemisahTitik(this);"

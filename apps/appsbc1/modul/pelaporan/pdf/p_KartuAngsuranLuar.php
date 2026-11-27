@@ -298,14 +298,14 @@ $this->Ln(4);
 }
 
 //Logo
-		$this->Image('../../../images/logo_lpd.gif',12,66,13,0);
+		$this->Image('../../../images/logo_bumdes.png',12,66,13,0);
 		
 		$this->Ln(4.5);
 		
 		//Arial bold 15
 		$this->SetFont('Arial','',9);
 		$this->SetX(20);
-		$this->Cell(80,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'C');
+		$this->Cell(80,0,strtoupper(LEMBAGA_LONG),0,0,'C');
 		$this->Ln(3.5);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(20);
@@ -314,7 +314,6 @@ $this->Ln(4);
 		
 		$this->SetFont('Arial','I',6);
 		$this->SetX(20);
-		$this->Cell(80,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'C');
 		$this->Ln(2.5);
 		
 		$this->SetFont('Arial','I',6);

@@ -46,7 +46,7 @@ class PDF extends FPDF
             $lid = $id;
         }
 
-        $this->Image('../../../images/logo_lpd.gif', 90, 50, 40, 0);
+        $this->Image('../../../images/logo_bumdes.png', 90, 50, 40, 0);
 
         $nik = trim($row['nik']);
 
@@ -62,13 +62,13 @@ class PDF extends FPDF
                 if (file_exists($tmp_qr) && filesize($tmp_qr) > 100) {
                     $this->Image($tmp_qr, 95, 202, 30, 30, 'PNG');
                 } else {
-                    $this->Image('../../../images/logo_lpd.gif', 95, 202, 30, 30);
+                    $this->Image('../../../images/logo_bumdes.png', 95, 202, 30, 30);
                 }
             } else {
-                $this->Image('../../../images/logo_lpd.gif', 95, 202, 30, 30);
+                $this->Image('../../../images/logo_bumdes.png', 95, 202, 30, 30);
             }
         } else {
-            $this->Image('../../../images/logo_lpd.gif', 95, 202, 30, 30);
+            $this->Image('../../../images/logo_bumdes.png', 95, 202, 30, 30);
         }
 
         $this->Ln(35);
@@ -163,7 +163,7 @@ class PDF extends FPDF
 
         $this->SetFont('Arial', '', 12);
         $this->SetX(20);
-        $this->Cell(0, 0, 'LEMBAGA PERKREDITAN DESA (LPD)', 0, 0, 'C');
+        $this->Cell(0, 0, strtoupper(LEMBAGA_LONG), 0, 0, 'C');
 
         $this->Ln(5);
 
@@ -186,7 +186,7 @@ class PDF extends FPDF
         $this->Cell(
             0,
             0,
-            'SK Gubernur Bali No.'.$row['nomor_bh'].', '.$row['alamat_desa'].', Telp.'.$row['telpon_desa'],
+            $row['alamat_desa'].', Telp.'.$row['telpon_desa'],
             0,
             0,
             'C'

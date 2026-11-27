@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); include "../inc/inc.koneksi.php"; ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -22,7 +22,7 @@
 <div id="page">
     
 	<div id="footer-bar" class="footer-bar-1">
-		<p class="w-100 font-11 mt-3 color-theme opacity-60 text-center">LPD Bali Apps &copy;PT. Asta Brata Teknologi</p>
+		<p class="w-100 font-11 mt-3 color-theme opacity-60 text-center"><?php echo LEMBAGA_SORT; ?> Bali Apps &copy;PT. Asta Brata Teknologi</p>
 	</div>
 	
 	
@@ -34,7 +34,7 @@
         <div class="card header-card shape-rounded" data-card-height="150">
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-overlay dark-mode-tint"></div>
-            <div class="card-bg preload-img" data-src="../images/logo_lpd.png"></div>
+            <div class="card-bg preload-img" data-src="../images/logo_bumdes.png"></div>
         </div>
         
         <div class="card card-style">

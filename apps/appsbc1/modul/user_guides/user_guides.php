@@ -3,7 +3,7 @@
                 <section class="widget">
                     <div class="widget-body">
 					<legend>
-						<h3><i class="fa fa-graduation-cap"></i> User Guides SIM LPD Bali</h3>
+						<h3><i class="fa fa-graduation-cap"></i> User Guides SIM <?php echo LEMBAGA_SORT; ?> Bali</h3>
 					</legend>
                         <ul>
 							<li><a href="modul/user_guides/Modul 1 - Instalasi Team Viewer Sebagai Remote Jarak Jauh.pdf" target="_blank">Modul 1 - Instalasi Team Viewer Sebagai Remote Jarak Jauh</a></li>

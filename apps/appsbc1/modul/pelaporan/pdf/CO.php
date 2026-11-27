@@ -35,7 +35,7 @@ class PDF extends FPDF
 	if($d=$d){$laporan="Harian"; $jenis="Tanggal";}else if($m=$m){$laporan="Bulanan"; $jenis="Bulan";}else if($y=$y){$laporan="Tahunan"; $jenis="Tahun";}else{$laporan="Global";}
 
 		//Logo 
-		$this->Image('../../../images/logo_lpd.gif',90,60,40,0);
+		$this->Image('../../../images/logo_bumdes.png',90,60,40,0);
 		
 		$this->Ln(45);
 		$this->SetFont('Arial','B',16);
@@ -64,7 +64,7 @@ class PDF extends FPDF
 		$this->SetY(-45);
 		$this->SetFont('Arial','',12);
 		$this->SetX(20);
-		$this->Cell(0,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'C');
+		$this->Cell(0,0,strtoupper(LEMBAGA_LONG),0,0,'C');
 		$this->Ln(5);
 		$this->SetFont('Arial','B',12);
 		$this->SetX(20);
@@ -74,7 +74,7 @@ class PDF extends FPDF
 		$this->SetFont('Arial','I',7);
 		$this->SetTextColor(0,0,0);
 		$this->SetX(20);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'].', '.$row['alamat_desa'].', Telp.' .$row['telpon_desa'],0,0,'C');
+		$this->Cell(0,0,$row['alamat_desa'].', Telp.' .$row['telpon_desa'],0,0,'C');
 		$this->Ln(1);
 		
 		$this->SetX(20);

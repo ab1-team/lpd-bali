@@ -98,7 +98,7 @@ $u=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='$r[id_user]' "))
 <table width="100%" action="" border="0" align="center" cellpadding="1" cellspacing="1.5" class="style1"> 	         
       
       <tr>
-        <th colspan="4" class="bottom"><b>LPD <?php echo strtoupper("$r[sebutan_desa] $r[nama_desa]");?></b><br>
+        <th colspan="4" class="bottom"><b><?php echo LEMBAGA_SORT; ?> <?php echo strtoupper("$r[sebutan_desa] $r[nama_desa]");?></b><br>
             <?php echo $r['alamat_desa'];?><br>
             <?php echo " Telp. ".$r['telpon_desa'];?></th>
         <td width="4%" rowspan="17">&nbsp;</td>

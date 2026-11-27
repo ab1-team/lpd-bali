@@ -52,14 +52,14 @@ namun jika sesuai dengan SOP pinjaman tsb telah dinyatakan lunas, silahkan klik 
 
 <div class="alert alert-info animated fadeInDown">
 <h3 class="fw-semi-bold">
-	<img class='' alt='...' src='images/logo_lpd.gif' style='align:center; width:70px; margin-right:5px;'> 
+	<img class='' alt='...' src='images/logo_bumdes.png' style='align:center; width:70px; margin-right:5px;'> 
 	<i class="fa fa-gavel"></i> Validasi Pelunasan ID.<?php echo $id_pinj;?>
 </h3>
 <?php 
 if ($_SESSION['level']==1 and $_SESSION['jabatan']==1) {$tombol="";}else {$tombol="disabled"; }
 echo "
-<p class='text-justify'>Dengan mempertimbangkan Standar Operasional Prosedur (SOP) yang berlaku di LPD $row[sebutan_desa] $row[nama_desa] Kecamatan $row[nama_kec]
-dan mengingat sumpah jabatan, dengan ini Kepala LPD $row[sebutan_desa] $row[nama_desa], menyatakan dengan sebenar-benarnya
+<p class='text-justify'>Dengan mempertimbangkan Standar Operasional Prosedur (SOP) yang berlaku di ".LEMBAGA_SORT." $row[sebutan_desa] $row[nama_desa] Kecamatan $row[nama_kec]
+dan mengingat sumpah jabatan, dengan ini Kepala ".LEMBAGA_SORT." $row[sebutan_desa] $row[nama_desa], menyatakan dengan sebenar-benarnya
 bahwa :
 </p>
 	<table>
@@ -128,7 +128,7 @@ bahwa :
 		<a href=modul/pelaporan/pdf/c_vL_i.php?&idp=$id_pinj target='_blank'><strong><i class='glyphicon glyphicon-print'></i> Cetak Kuitansi Pelunasan </strong></a>
 		</label>
 	</div>
-	<a href='javascript:ValidasiLunas(\"{$row[id]}\")' id='ValidasiLunas' class='btn btn-danger btn-lg btn-block' disabled><i class='fa fa-legal'></i> Validasi Lunas ! <i>(Kepala LPD Only)</i></a>		
+	<a href='javascript:ValidasiLunas(\"{$row[id]}\")' id='ValidasiLunas' class='btn btn-danger btn-lg btn-block' disabled><i class='fa fa-legal'></i> Validasi Lunas ! <i>(Kepala ".LEMBAGA_SORT." Only)</i></a>		
 ";
 ?>
 								

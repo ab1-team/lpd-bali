@@ -41,7 +41,7 @@ $u=mysql_fetch_array(mysql_query("SELECT * FROM users where id='$_SESSION[id]' "
 <table width="96%" border="0" align="center" cellpadding="3" cellspacing="0">
 	<tr>
 		<td height="20" colspan="4" class="bottom">
-			<div class="style9">LPD <?php echo "$row[sebutan_desa] $row[nama_desa]";?><br>
+			<div class="style9"><?php echo LEMBAGA_SORT; ?> <?php echo "$row[sebutan_desa] $row[nama_desa]";?><br>
 			<?php echo $row['alamat_desa'];?> Telp.<?php echo $row['telpon_desa'];?>
 			</div>
 		</td>

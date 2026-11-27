@@ -18,13 +18,13 @@ class PDF extends FPDF
     $row=mysql_fetch_array(mysql_query("SELECT * FROM kabupaten b, kecamatan c, sebutan_desa sd, desa d where b.id=c.kd_kab and c.id=d.kd_kec and sd.id=d.sebutan AND d.id='$_SESSION[lokasi]' "));
 
 		//Logo
-		$this->Image('../../../images/logo_lpd.gif',21,8,12,0);
+		$this->Image('../../../images/logo_bumdes.png',21,8,12,0);
 		
 		//Arial bold 15
 		$this->SetTextColor(128,128,128);
 		$this->SetFont('Arial','',9);
 		$this->SetX(33);
-		$this->Cell(85,0,'LEMBAGA PERKREDITAN DESA (LPD)',0,0,'L');
+		$this->Cell(85,0,strtoupper(LEMBAGA_LONG),0,0,'L');
 		$this->Ln(4);
 		$this->SetFont('Arial','B',10);
 		$this->SetX(33);
@@ -33,7 +33,6 @@ class PDF extends FPDF
 		$this->Ln(3.5);
 		$this->SetFont('Arial','I',6);
 		$this->SetX(33);
-		$this->Cell(0,0,'SK Gubernur Bali No.'.$row['nomor_bh'],0,0,'L');
 
 		$this->SetFont('Arial','I',6);
 		$this->SetX(105);
@@ -115,7 +114,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->Ln(1);
 		
 		$this->SetX(22);
-		$this->MultiCell(174,4,strtoupper("$u[namadepan] $u[namabelakang]").', Kepala Lembaga Perkreditan Desa (LPD) '.$row['sebutan_desa'].' '.$row['nama_desa'].' untuk dan  atas nama Lembaga Perkreditan Desa (LPD) '.$row['sebutan_desa'].' '.$row['nama_desa'].' yang dikukuhkan dengan Surat Keputusan Bendesa Adat Cengkok Nomor 54/B.A.C/IX/2024 selanjutnya  disebut pemberi kredit, memberikan kredit kepada '.strtoupper("$row[namadepan]").' Bertempat tinggal di '.strtoupper("$row[alamat]").' dalam hal ini bertindak untuk dan atas  nama dirinya sendiri, selanjutnya disebut pengambil kredit, dengan pasal-pasal perjanjian kredit sebagai berikut:',0);
+		$this->MultiCell(174,4,strtoupper("$u[namadepan] $u[namabelakang]").', Kepala '.LEMBAGA_LONG.' '.$row['sebutan_desa'].' '.$row['nama_desa'].' untuk dan  atas nama '.LEMBAGA_LONG.' '.$row['sebutan_desa'].' '.$row['nama_desa'].' yang dikukuhkan dengan Surat Keputusan Bendesa Adat Cengkok Nomor 54/B.A.C/IX/2024 selanjutnya  disebut pemberi kredit, memberikan kredit kepada '.strtoupper("$row[namadepan]").' Bertempat tinggal di '.strtoupper("$row[alamat]").' dalam hal ini bertindak untuk dan atas  nama dirinya sendiri, selanjutnya disebut pengambil kredit, dengan pasal-pasal perjanjian kredit sebagai berikut:',0);
 		$this->Ln(1);
 		
 		$this->SetFont('Arial','B',9);
@@ -127,7 +126,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->SetX(25);
 		$this->Cell(4,4,'1.',0,0,'L');
 		$this->SetX(29);
-		$this->MultiCell(167,4,'LPD memberikan Kredit kepada pengambil kredit sebesar Rp. '.number_format($row['alokasi'],0,",",".").' ('.ucwords(toTerbilang($row['alokasi'])).' Rupiah) yang digunakan untuk '.$tp['nama_tujuan'].'.',0);
+		$this->MultiCell(167,4,LEMBAGA_SORT.' memberikan Kredit kepada pengambil kredit sebesar Rp. '.number_format($row['alokasi'],0,",",".").' ('.ucwords(toTerbilang($row['alokasi'])).' Rupiah) yang digunakan untuk '.$tp['nama_tujuan'].'.',0);
 		$this->Ln(0);
 		
 		$this->SetX(25);
@@ -181,7 +180,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->SetX(25);
 		$this->Cell(4,4,'1.',0,0,'L');
 		$this->SetX(29);
-		$this->MultiCell(167,4,'Untuk menjamin pembayaran kredit kembali termasuk bunga dan denda serta biaya lainnya yang akan dibebankan oleh LPD, maka pengambil kredit  dengan ini menyerahkan barang jaminan berupa '.$jam[1].', dan apabila dirasa kurang, maka hak milik pengambil kredit yang ada maupun yang akan ada wajib mejadi jaminan yang akan dikaitkan dengan saksi dan/atau sanksi awig-awig '.$row['sebutan_desa'].' '.$row['nama_desa'].'yang berlaku.',0);
+		$this->MultiCell(167,4,'Untuk menjamin pembayaran kredit kembali termasuk bunga dan denda serta biaya lainnya yang akan dibebankan oleh '.LEMBAGA_SORT.', maka pengambil kredit  dengan ini menyerahkan barang jaminan berupa '.$jam[1].', dan apabila dirasa kurang, maka hak milik pengambil kredit yang ada maupun yang akan ada wajib mejadi jaminan yang akan dikaitkan dengan saksi dan/atau sanksi awig-awig '.$row['sebutan_desa'].' '.$row['nama_desa'].'yang berlaku.',0);
 		$this->Ln(0);
 		
 		$this->SetX(25);
@@ -209,7 +208,7 @@ $this->SetY($Y_Fields_Name_position);
 		
 		$this->SetFont('Arial','',9);
 		$this->SetX(22);
-		$this->MultiCell(174,4,'Selama kredit berjalan barang-barang jaminan bila dianggap perlu diasuransikan oleh penerima kredit pada maskapai angsuran yang ditunjukan dan disetujui oleh LPD dengan syarat-syarat bankers/LPD Clausula.',0);
+		$this->MultiCell(174,4,'Selama kredit berjalan barang-barang jaminan bila dianggap perlu diasuransikan oleh penerima kredit pada maskapai angsuran yang ditunjukan dan disetujui oleh '.LEMBAGA_SORT.' dengan syarat-syarat bankers/'.LEMBAGA_SORT.' Clausula.',0);
 		$this->Ln(2);
 		
 		$this->SetFont('Arial','B',9);
@@ -219,7 +218,7 @@ $this->SetY($Y_Fields_Name_position);
 		
 		$this->SetFont('Arial','',9);
 		$this->SetX(22);
-		$this->MultiCell(174,4,'LPD berhak menagih hutang (kredit) ini atau sisanya berikut bunga maupun biaya administrasi / tata usaha dengan seketika dan sekaligus atas kekuatan perjanjian kredit itu apabila :',0);
+		$this->MultiCell(174,4,LEMBAGA_SORT.' berhak menagih hutang (kredit) ini atau sisanya berikut bunga maupun biaya administrasi / tata usaha dengan seketika dan sekaligus atas kekuatan perjanjian kredit itu apabila :',0);
 		$this->Ln(0);
 		
 		$this->SetX(25);
@@ -243,7 +242,7 @@ $this->SetY($Y_Fields_Name_position);
 		$this->SetX(25);
 		$this->Cell(4,4,'4.',0,0,'L');
 		$this->SetX(29);
-		$this->MultiCell(167,4,'Jika pengambil kredit menurut pertimbangan LPD tidak atau tidak cukup memenuhi peraturan yang ditetapkan dalam perjanjian itu.',0);
+		$this->MultiCell(167,4,'Jika pengambil kredit menurut pertimbangan '.LEMBAGA_SORT.' tidak atau tidak cukup memenuhi peraturan yang ditetapkan dalam perjanjian itu.',0);
 		$this->Ln(-2);
 		
 		$this->SetFont('Arial','B',9);

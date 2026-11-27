@@ -1,4 +1,4 @@
-<?php session_destroy(); ?>
+<?php session_destroy(); include "../inc/inc.koneksi.php"; ?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -6,7 +6,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
-<title>LPD BALI</title>
+<title><?php echo strtoupper(LEMBAGA_SORT); ?> BALI</title>
 <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
 <link rel="stylesheet" type="text/css" href="styles/style.css">
 <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900|Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&amp;display=swap" rel="stylesheet">
@@ -25,13 +25,13 @@
         
         <div class="card" data-card-height="cover">
             <div class="card-top mt-5 pt-3 text-center">
-                <img src="../images/logo_lpd.png" width="100px">
+                <img src="../images/logo_bumdes.png" width="100px">
             </div>
             <div class="card-center">
                 <p class="boxed-text-xl pt-4 color-white font-16 line-height-sm font-400">
                     Om swastyastu,<br>
-					Selamat datang di LPD Bali Apps<br>
-					kemudahan pengelolaan Lembaga Perkreditan Desa dalam satu genggaman.
+					Selamat datang di <?php echo LEMBAGA_SORT; ?> Apps<br>
+					kemudahan pengelolaan <?php echo LEMBAGA_LONG; ?> dalam satu genggaman.
                 </p>
             </div>
             <div class="card-bottom">
