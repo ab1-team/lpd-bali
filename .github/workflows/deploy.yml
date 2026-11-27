@@ -1,0 +1,41 @@
+name: Deploy lpd-bali ke sim-sppg
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-lpd-bali
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: 103.177.95.92
+          username: enpii
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          command_timeout: 30m
+          script: |
+            set -e
+            cd /home/enpii/apps/lpd-bali
+            git pull --ff-only git@github-ab1team:ab1-team/lpd-bali.git main
+            chmod -R a+rX apps
+            docker compose up -d --build
+            docker image prune -f
+      - name: Health check
+        run: |
+          sleep 5
+          for url in "http://103.177.95.92:8017/" "http://103.177.95.92:8018/" "http://103.177.95.92:8019/"; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "$url")
+            echo "$url -> $code"
+            if [ "$code" != "200" ] && [ "$code" != "302" ]; then
+              echo "HEALTH CHECK GAGAL untuk $url"
+              exit 1
+            fi
+          done
+          echo "ALL_HEALTHY"
