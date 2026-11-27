@@ -22,7 +22,7 @@ date_default_timezone_set('Asia/Jakarta')
 		  $(".preloader").fadeOut();
 		})
 	</script>
-    <link rel="shortcut icon" href="images/logo_bumdes.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/logo_bumdes.png?v=20261127" type="image/x-icon">
 	<title>SIM <?php echo LEMBAGA_SORT; ?> <?php echo "$nama_desa Kecamatan $nama_kec";?> - V.2.0</title>
     <link href="css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
@@ -98,7 +98,7 @@ $_SESSION['jum_pinj_i']=$jum_pinj_i;
         <header class="logo hidden-xs mb-n-sm">
             <a href="?p=home">
 			<span class="thumb-sm avatar">
-				<img class='' alt='...' src='images/logo_bumdes.png'>
+				<img class='' alt='...' src='images/logo_bumdes.png?v=20261127'>
 			</span>
 			</a>
         </header>

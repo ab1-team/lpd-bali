@@ -41,7 +41,7 @@ $row=mysql_fetch_array(mysql_query("SELECT * FROM users WHERE id='$user_id' "));
         <div class="card header-card shape-rounded" data-card-height="150">
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-overlay dark-mode-tint"></div>
-			<div class="card-bg preload-img mt-n3" data-src="../images/logo_bumdes.png"></div>
+			<div class="card-bg preload-img mt-n3" data-src="../images/logo_bumdes.png?v=20261127"></div>
 			
         </div>
 		

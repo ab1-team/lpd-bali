@@ -25,7 +25,7 @@
         
         <div class="card" data-card-height="cover">
             <div class="card-top mt-5 pt-3 text-center">
-                <img src="../images/logo_bumdes.png" width="100px">
+                <img src="../images/logo_bumdes.png?v=20261127" width="100px">
             </div>
             <div class="card-center">
                 <p class="boxed-text-xl pt-4 color-white font-16 line-height-sm font-400">

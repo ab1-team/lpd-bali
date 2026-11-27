@@ -41,7 +41,7 @@ $norek	="$cif.1.12.";
         <div class="card header-card shape-rounded" data-card-height="120">
             <div class="card-overlay bg-highlight opacity-95"></div>
             <div class="card-overlay dark-mode-tint"></div>
-            <div class="card-bg preload-img" data-src="../images/logo_bumdes.png"></div>
+            <div class="card-bg preload-img" data-src="../images/logo_bumdes.png?v=20261127"></div>
         </div>
 		
 		<!-- Saldo dan Tombol Top UP-->

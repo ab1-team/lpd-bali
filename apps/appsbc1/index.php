@@ -9,7 +9,7 @@ $lpd  = mysql_fetch_array ($desa);
 ?>
 <!DOCTYPE html><html>
 <head>
-    <link rel="shortcut icon" href="images/logo_bumdes.png" type="image/x-icon">
+    <link rel="shortcut icon" href="images/logo_bumdes.png?v=20261127" type="image/x-icon">
 	<title>SIM <?php echo LEMBAGA_SORT; ?> - V.2.0</title>
     <link href="css/application.min.css" rel="stylesheet">
     <!-- as of IE9 cannot parse css files with more that 4K classes separating in two files -->
@@ -73,7 +73,7 @@ background: url(images/bg_main.png) no-repeat fixed;
 <br><br><br><br>	
 <div class="row mt-xlg">
 	<div class="col-sm-4 text-align-center">
-		<img class="mt-xlg" src="images/logo_bumdes.png" style="width:100px;"/>
+		<img class="mt-xlg" src="images/logo_bumdes.png?v=20261127" style="width:100px;"/>
 	</div>
 	<div class="col-sm-4">
 
@@ -111,7 +111,7 @@ background: url(images/bg_main.png) no-repeat fixed;
 		
 	</div>
 	<div class="col-sm-4 text-align-center">
-		<img class="mt-xlg" src="images/logo_bumdes.png" style="width:250px;"/>
+		<img class="mt-xlg" src="images/logo_bumdes.png?v=20261127" style="width:250px;"/>
 	</div>
 </div>
 </div>
