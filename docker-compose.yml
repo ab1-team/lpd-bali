@@ -23,7 +23,8 @@ volumes:
 # Ports on the VPS (sim-sppg):
 #   8017  appsbc1     (PHP 5.6)
 #   8018  upkv2new    (PHP 7.4)
-#   3307  mysql 5.7   (host-localhost only, for admin access)
+#   8019  mengwi      (PHP 7.4, kopmengwi.akubumdes.net)
+#   3307  mysql 5.7   (public, for remote DB access)
 # ---------------------------------------------------------------------------
 
 services:
@@ -100,5 +101,32 @@ services:
     volumes:
       - ./apps/upkv2new:/var/www/html:ro
       - ./docker/nginx/upkv2new.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - lpd-internal
+
+  mengwi:
+    build:
+      context: ./docker/mengwi-php74
+    image: lpd/mengwi-php74
+    container_name: lpd-mengwi
+    restart: unless-stopped
+    depends_on:
+      - db
+    volumes:
+      - ./apps/mengwi:/var/www/html
+    networks:
+      - lpd-internal
+
+  nginx-mengwi:
+    image: nginx:alpine
+    container_name: lpd-nginx-mengwi
+    restart: unless-stopped
+    depends_on:
+      - mengwi
+    ports:
+      - "8019:80"
+    volumes:
+      - ./apps/mengwi:/var/www/html:ro
+      - ./docker/nginx/mengwi.conf:/etc/nginx/conf.d/default.conf:ro
     networks:
       - lpd-internal

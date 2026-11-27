@@ -1,0 +1,19 @@
+<?php session_start();
+$id_pinj	=$_SESSION['id_pinj'];
+?>
+
+<script type="text/javascript">
+		
+		function MM_openBrWindow(theURL,winName,features) { //membuka window untuk print
+				window.open(theURL,winName,features);
+				}
+				
+</script>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_COP.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="top" title="Cover"><i class="glyphicon glyphicon-th-large"></i> Cover</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_SP.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="top" title="Surat Pengajuan Pinjaman"><i class="glyphicon glyphicon-file"></i> Surat Pengajuan Pinjaman</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_SR.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="top" title="Surat Rekomendasi Kredit"><i class="glyphicon glyphicon-check"></i> Surat Rekomendasi Kredit</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_PP.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="top" title="Pernyataan Peminjam"><i class="glyphicon glyphicon-user"></i> Pernyataan Peminjam</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_SPdK.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="bottom" title="Surat Persetujuan dan Kuasa"><i class="glyphicon glyphicon-user"></i> Surat Persetujuan dan Kuasa</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_PPPA.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded mb-xs width-200" data-toggle="tooltip" data-placement="bottom" title="Form Verifikasi"><i class="glyphicon glyphicon-comment"></i> Form Verifikasi</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_RA.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded  mb-xs width-200" data-toggle="tooltip" data-placement="bottom" title="Rencana Angsuran"><i class="glyphicon glyphicon-plane"></i> Rencana Angsuran</a>
+							<a href="javascript:;" onclick="MM_openBrWindow('modul/pinjaman/cp/i_TTD.php?&rcp=<?php echo $id_pinj;?>','page','toolbar=0,scrollbars=1,location=0,statusbar=0,menubar=0,resizable=0,width=800,height=1200,left=180,top=0,titlebar=0' )"   class="btn btn-inverse btn-rounded  mb-xs width-200" data-toggle="tooltip" data-placement="bottom" title="Rencana Angsuran"><i class="glyphicon glyphicon-file"></i> Tanda Terima Jaminan</a>
